@@ -53,17 +53,73 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--ccc-ui-space-3);
+    font-style: normal;
 }
 
 .ccc-ui-contact__item {
+    min-height: 96px;
     padding: var(--ccc-ui-space-3);
     border-radius: var(--ccc-ui-radius-md);
     background: var(--ccc-ui-color-surface-soft);
     border: 1px solid var(--ccc-ui-color-border);
+    display: flex;
+    align-items: center;
+}
+
+.ccc-ui-contact__line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+    color: var(--ccc-ui-color-text);
+    text-decoration: none;
+}
+
+.ccc-ui-contact__icon {
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--ccc-ui-color-border);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--ccc-ui-color-accent);
+}
+
+.ccc-ui-contact__value {
+    display: inline-block;
+    min-width: 0;
+    color: var(--ccc-ui-color-text);
+    font-size: 17px;
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.ccc-ui-contact__link:hover .ccc-ui-contact__value {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.ccc-ui-contact__map-wrap {
+    margin-top: var(--ccc-ui-space-4);
+    border-radius: var(--ccc-ui-radius-md);
+    overflow: hidden;
+    border: 1px solid var(--ccc-ui-color-border);
+    background: #090909;
+}
+
+.ccc-ui-contact__map {
+    display: block;
+    width: 100%;
+    height: clamp(220px, 28vw, 300px);
+    border: 0;
 }
 
 .ccc-ui-contact__map-link-wrap {
-    margin-top: var(--ccc-ui-space-4);
+    margin-top: var(--ccc-ui-space-3);
 }
 
 @media (max-width: 767px) {

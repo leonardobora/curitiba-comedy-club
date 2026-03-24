@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 if (!defined('ABSPATH')) {
     exit;
@@ -36,6 +36,8 @@ final class CCC_UI_Shortcode_Contact_Section
             self::TAG
         );
 
+        $address = trim((string) $atts['address']);
+
         $phone_display = trim((string) $atts['whatsapp']);
         $phone_link = preg_replace('/[^0-9+]/', '', $phone_display);
 
@@ -55,10 +57,15 @@ final class CCC_UI_Shortcode_Contact_Section
             }
         }
 
-        $address = trim((string) $atts['address']);
         $map_url = trim((string) $atts['map_url']);
         if ($map_url === '' && $address !== '') {
             $map_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode($address);
+        }
+
+        $map_embed_query = $address !== '' ? $address : $map_url;
+        $map_embed_url = '';
+        if ($map_embed_query !== '') {
+            $map_embed_url = 'https://www.google.com/maps?q=' . rawurlencode($map_embed_query) . '&output=embed';
         }
 
         ob_start();
@@ -70,49 +77,90 @@ final class CCC_UI_Shortcode_Contact_Section
 
                     <address class="ccc-ui-contact__grid">
                         <div class="ccc-ui-contact__item">
-                            <span class="ccc-ui-label">Endereco</span>
-                            <p class="ccc-ui-body">
-                                <?php if ($map_url !== '' && $address !== '') : ?>
-                                    <a class="ccc-ui-contact__link" href="<?php echo esc_url($map_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($address); ?></a>
-                                <?php else : ?>
-                                    <?php echo esc_html($address); ?>
-                                <?php endif; ?>
-                            </p>
+                            <?php if ($map_url !== '' && $address !== '') : ?>
+                                <a class="ccc-ui-contact__line ccc-ui-contact__link" href="<?php echo esc_url($map_url); ?>" target="_blank" rel="noopener noreferrer">
+                                    <span class="ccc-ui-contact__icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.3 7 13 7 13s7-7.7 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
+                                    </span>
+                                    <span class="ccc-ui-contact__value"><?php echo esc_html($address); ?></span>
+                                </a>
+                            <?php else : ?>
+                                <div class="ccc-ui-contact__line">
+                                    <span class="ccc-ui-contact__icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.3 7 13 7 13s7-7.7 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
+                                    </span>
+                                    <span class="ccc-ui-contact__value"><?php echo esc_html($address); ?></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="ccc-ui-contact__item">
-                            <span class="ccc-ui-label">WhatsApp</span>
-                            <p class="ccc-ui-body">
-                                <?php if (!empty($phone_link)) : ?>
-                                    <a class="ccc-ui-contact__link" href="tel:<?php echo esc_attr($phone_link); ?>"><?php echo esc_html($phone_display); ?></a>
-                                <?php else : ?>
-                                    <?php echo esc_html($phone_display); ?>
-                                <?php endif; ?>
-                            </p>
+                            <?php if (!empty($phone_link)) : ?>
+                                <a class="ccc-ui-contact__line ccc-ui-contact__link" href="tel:<?php echo esc_attr($phone_link); ?>">
+                                    <span class="ccc-ui-contact__icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.3 11.3 0 0 0 3.56.57 1 1 0 0 1 1 1V21a1 1 0 0 1-1 1A18 18 0 0 1 2 4a1 1 0 0 1 1-1h4.5a1 1 0 0 1 1 1 11.3 11.3 0 0 0 .57 3.56 1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
+                                    </span>
+                                    <span class="ccc-ui-contact__value"><?php echo esc_html($phone_display); ?></span>
+                                </a>
+                            <?php else : ?>
+                                <div class="ccc-ui-contact__line">
+                                    <span class="ccc-ui-contact__icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.3 11.3 0 0 0 3.56.57 1 1 0 0 1 1 1V21a1 1 0 0 1-1 1A18 18 0 0 1 2 4a1 1 0 0 1 1-1h4.5a1 1 0 0 1 1 1 11.3 11.3 0 0 0 .57 3.56 1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
+                                    </span>
+                                    <span class="ccc-ui-contact__value"><?php echo esc_html($phone_display); ?></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="ccc-ui-contact__item">
-                            <span class="ccc-ui-label">Instagram</span>
-                            <p class="ccc-ui-body">
-                                <?php if ($instagram_url !== '') : ?>
-                                    <a class="ccc-ui-contact__link" href="<?php echo esc_url($instagram_url); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($instagram_raw); ?></a>
-                                <?php else : ?>
-                                    <?php echo esc_html($instagram_raw); ?>
-                                <?php endif; ?>
-                            </p>
+                            <?php if ($instagram_url !== '') : ?>
+                                <a class="ccc-ui-contact__line ccc-ui-contact__link" href="<?php echo esc_url($instagram_url); ?>" target="_blank" rel="noopener noreferrer">
+                                    <span class="ccc-ui-contact__icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm5 2.3A5.5 5.5 0 1 1 6.5 12 5.5 5.5 0 0 1 12 6.5Zm0 2.2a3.3 3.3 0 1 0 3.3 3.3A3.3 3.3 0 0 0 12 8.7Zm5.75-2.95a1.3 1.3 0 1 1-1.3 1.3 1.3 1.3 0 0 1 1.3-1.3Z"/></svg>
+                                    </span>
+                                    <span class="ccc-ui-contact__value"><?php echo esc_html($instagram_raw); ?></span>
+                                </a>
+                            <?php else : ?>
+                                <div class="ccc-ui-contact__line">
+                                    <span class="ccc-ui-contact__icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm5 2.3A5.5 5.5 0 1 1 6.5 12 5.5 5.5 0 0 1 12 6.5Zm0 2.2a3.3 3.3 0 1 0 3.3 3.3A3.3 3.3 0 0 0 12 8.7Zm5.75-2.95a1.3 1.3 0 1 1-1.3 1.3 1.3 1.3 0 0 1 1.3-1.3Z"/></svg>
+                                    </span>
+                                    <span class="ccc-ui-contact__value"><?php echo esc_html($instagram_raw); ?></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="ccc-ui-contact__item">
-                            <span class="ccc-ui-label">E-mail</span>
-                            <p class="ccc-ui-body">
-                                <?php if (!empty($email)) : ?>
-                                    <a class="ccc-ui-contact__link" href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
-                                <?php else : ?>
-                                    <?php echo esc_html((string) $atts['email']); ?>
-                                <?php endif; ?>
-                            </p>
+                            <?php if (!empty($email)) : ?>
+                                <a class="ccc-ui-contact__line ccc-ui-contact__link" href="mailto:<?php echo esc_attr($email); ?>">
+                                    <span class="ccc-ui-contact__icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm.9 2 8.1 5.6L20.1 7H3.9Zm16.1 10V8.8l-7.4 5.1a1 1 0 0 1-1.2 0L4 8.8V17h16Z"/></svg>
+                                    </span>
+                                    <span class="ccc-ui-contact__value"><?php echo esc_html($email); ?></span>
+                                </a>
+                            <?php else : ?>
+                                <div class="ccc-ui-contact__line">
+                                    <span class="ccc-ui-contact__icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm.9 2 8.1 5.6L20.1 7H3.9Zm16.1 10V8.8l-7.4 5.1a1 1 0 0 1-1.2 0L4 8.8V17h16Z"/></svg>
+                                    </span>
+                                    <span class="ccc-ui-contact__value"><?php echo esc_html((string) $atts['email']); ?></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </address>
+
+                    <?php if ($map_embed_url !== '') : ?>
+                        <div class="ccc-ui-contact__map-wrap">
+                            <iframe
+                                class="ccc-ui-contact__map"
+                                src="<?php echo esc_url($map_embed_url); ?>"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                allowfullscreen
+                                title="Mapa do local do Curitiba Comedy Club">
+                            </iframe>
+                        </div>
+                    <?php endif; ?>
 
                     <?php if ($map_url !== '') : ?>
                         <p class="ccc-ui-contact__map-link-wrap">
