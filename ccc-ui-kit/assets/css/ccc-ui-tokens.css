@@ -1,0 +1,27 @@
+:root {
+    --ccc-ui-color-bg: #080808;
+    --ccc-ui-color-surface: #121212;
+    --ccc-ui-color-surface-soft: #1a1a1a;
+    --ccc-ui-color-text: #f5f5f5;
+    --ccc-ui-color-text-muted: #c8c8c8;
+    --ccc-ui-color-accent: #d5001c;
+    --ccc-ui-color-accent-hover: #ef233c;
+    --ccc-ui-color-border: rgba(255, 255, 255, 0.12);
+
+    --ccc-ui-font-display: "Oswald", "Arial Narrow", Arial, sans-serif;
+    --ccc-ui-font-body: "Montserrat", "Segoe UI", Arial, sans-serif;
+
+    --ccc-ui-space-1: 8px;
+    --ccc-ui-space-2: 12px;
+    --ccc-ui-space-3: 16px;
+    --ccc-ui-space-4: 24px;
+    --ccc-ui-space-5: 32px;
+    --ccc-ui-space-6: 48px;
+
+    --ccc-ui-radius-sm: 10px;
+    --ccc-ui-radius-md: 16px;
+    --ccc-ui-radius-lg: 22px;
+
+    --ccc-ui-shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.28);
+    --ccc-ui-shadow-strong: 0 16px 42px rgba(0, 0, 0, 0.4);
+}

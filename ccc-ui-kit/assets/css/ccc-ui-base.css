@@ -1,0 +1,107 @@
+.ccc-ui-section {
+    padding: var(--ccc-ui-space-6) 0;
+    color: var(--ccc-ui-color-text);
+    background: transparent;
+    font-family: var(--ccc-ui-font-body);
+}
+
+.ccc-ui-container {
+    width: min(1120px, 92%);
+    margin: 0 auto;
+}
+
+.ccc-ui-title {
+    margin: 0;
+    color: var(--ccc-ui-color-text);
+    font-family: var(--ccc-ui-font-display);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+}
+
+.ccc-ui-title--xl {
+    font-size: clamp(34px, 7vw, 62px);
+}
+
+.ccc-ui-title--lg {
+    font-size: clamp(28px, 5vw, 42px);
+}
+
+.ccc-ui-kicker {
+    margin: 0 0 var(--ccc-ui-space-2);
+    color: var(--ccc-ui-color-accent);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.ccc-ui-subtitle,
+.ccc-ui-body {
+    margin: 0;
+    color: var(--ccc-ui-color-text-muted);
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.ccc-ui-actions {
+    display: flex;
+    gap: var(--ccc-ui-space-2);
+    margin-top: var(--ccc-ui-space-4);
+}
+
+.ccc-ui-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: var(--ccc-ui-radius-sm);
+    border: 1px solid transparent;
+    font-family: var(--ccc-ui-font-body);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.ccc-ui-button:hover {
+    transform: translateY(-1px);
+}
+
+.ccc-ui-button--primary {
+    background: var(--ccc-ui-color-accent);
+    color: #ffffff;
+}
+
+.ccc-ui-button--primary:hover {
+    background: var(--ccc-ui-color-accent-hover);
+    color: #ffffff;
+}
+
+.ccc-ui-button--ghost {
+    background: transparent;
+    color: var(--ccc-ui-color-text);
+    border-color: var(--ccc-ui-color-border);
+}
+
+.ccc-ui-button--ghost:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    color: #ffffff;
+}
+
+.ccc-ui-label {
+    display: inline-block;
+    margin-bottom: 6px;
+    color: var(--ccc-ui-color-text-muted);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+    .ccc-ui-section {
+        padding: var(--ccc-ui-space-5) 0;
+    }
+}

@@ -1,0 +1,73 @@
+.ccc-ui-hero__surface,
+.ccc-ui-cta-ingressos__surface,
+.ccc-ui-contact__surface {
+    background: linear-gradient(160deg, #101010 0%, #080808 100%);
+    border: 1px solid var(--ccc-ui-color-border);
+    border-radius: var(--ccc-ui-radius-lg);
+    box-shadow: var(--ccc-ui-shadow-soft);
+}
+
+.ccc-ui-hero__surface {
+    padding: clamp(28px, 5vw, 56px);
+    position: relative;
+    overflow: hidden;
+}
+
+.ccc-ui-hero__surface::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(213, 0, 28, 0.35) 0%, rgba(213, 0, 28, 0) 72%);
+    right: -70px;
+    top: -70px;
+    pointer-events: none;
+}
+
+.ccc-ui-hero--center .ccc-ui-hero__surface {
+    text-align: center;
+}
+
+.ccc-ui-hero--center .ccc-ui-actions {
+    justify-content: center;
+}
+
+.ccc-ui-subtitle {
+    max-width: 70ch;
+    margin-top: var(--ccc-ui-space-3);
+}
+
+.ccc-ui-cta-ingressos__surface {
+    padding: clamp(24px, 4vw, 40px);
+    display: grid;
+    gap: var(--ccc-ui-space-3);
+}
+
+.ccc-ui-contact__surface {
+    padding: clamp(24px, 4vw, 40px);
+}
+
+.ccc-ui-contact__grid {
+    margin-top: var(--ccc-ui-space-4);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--ccc-ui-space-3);
+}
+
+.ccc-ui-contact__item {
+    padding: var(--ccc-ui-space-3);
+    border-radius: var(--ccc-ui-radius-md);
+    background: var(--ccc-ui-color-surface-soft);
+    border: 1px solid var(--ccc-ui-color-border);
+}
+
+.ccc-ui-contact__map-link-wrap {
+    margin-top: var(--ccc-ui-space-4);
+}
+
+@media (max-width: 767px) {
+    .ccc-ui-contact__grid {
+        grid-template-columns: 1fr;
+    }
+}
