@@ -44,8 +44,98 @@
     gap: var(--ccc-ui-space-3);
 }
 
+.ccc-ui-section-heading__inner {
+    max-width: 840px;
+}
+
+.ccc-ui-section-heading--center .ccc-ui-section-heading__inner {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ccc-ui-about__surface {
+    padding: clamp(24px, 4vw, 40px);
+    border-radius: var(--ccc-ui-radius-lg);
+    border: 1px solid var(--ccc-ui-color-border);
+    background: linear-gradient(170deg, #121212 0%, #0a0a0a 100%);
+    box-shadow: var(--ccc-ui-shadow-soft);
+    display: grid;
+    gap: var(--ccc-ui-space-3);
+}
+
+.ccc-ui-about__highlights {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+}
+
+.ccc-ui-about__highlight-item {
+    position: relative;
+    padding-left: 18px;
+    color: var(--ccc-ui-color-text);
+    line-height: 1.4;
+}
+
+.ccc-ui-about__highlight-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--ccc-ui-color-accent);
+}
+
+.ccc-ui-menu__surface {
+    padding: clamp(24px, 4vw, 40px);
+    border-radius: var(--ccc-ui-radius-lg);
+    border: 1px solid var(--ccc-ui-color-border);
+    background: linear-gradient(170deg, #121212 0%, #0a0a0a 100%);
+    box-shadow: var(--ccc-ui-shadow-soft);
+    display: grid;
+    gap: var(--ccc-ui-space-3);
+}
+
+.ccc-ui-menu__header {
+    display: grid;
+    gap: 10px;
+}
+
+.ccc-ui-menu__embed-placeholder {
+    min-height: 120px;
+    border: 1px dashed var(--ccc-ui-color-border);
+    border-radius: var(--ccc-ui-radius-md);
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--ccc-ui-color-text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--ccc-ui-space-3);
+    font-size: 14px;
+}
+
+.ccc-ui-menu__actions {
+    flex-wrap: wrap;
+}
+
 .ccc-ui-contact__surface {
     padding: clamp(24px, 4vw, 40px);
+}
+
+.ccc-ui-contact__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ccc-ui-space-3);
+    flex-wrap: wrap;
+}
+
+.ccc-ui-contact__linktree {
+    min-height: 40px;
 }
 
 .ccc-ui-contact__grid {
@@ -125,5 +215,9 @@
 @media (max-width: 767px) {
     .ccc-ui-contact__grid {
         grid-template-columns: 1fr;
+    }
+
+    .ccc-ui-contact__header {
+        align-items: flex-start;
     }
 }

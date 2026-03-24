@@ -31,6 +31,8 @@ final class CCC_UI_Shortcode_Contact_Section
                 'instagram' => '@curitibacomedyclub',
                 'email'     => 'contato@curitibacomedyclub.com.br',
                 'map_url'   => '',
+                'linktree_url' => '',
+                'linktree_text' => 'Acessar Linktree',
             ),
             $atts,
             self::TAG
@@ -68,12 +70,24 @@ final class CCC_UI_Shortcode_Contact_Section
             $map_embed_url = 'https://www.google.com/maps?q=' . rawurlencode($map_embed_query) . '&output=embed';
         }
 
+        $linktree_url = trim((string) $atts['linktree_url']);
+        if ($linktree_url === '') {
+            $linktree_url = 'https://linktr.ee/curitibacomedy';
+        }
+
         ob_start();
         ?>
         <section class="ccc-ui-section ccc-ui-contact" data-ccc-ui-component="contact-section">
             <div class="ccc-ui-container">
                 <div class="ccc-ui-contact__surface">
-                    <h2 class="ccc-ui-title ccc-ui-title--lg"><?php echo esc_html($atts['title']); ?></h2>
+                    <header class="ccc-ui-contact__header">
+                        <h2 class="ccc-ui-title ccc-ui-title--lg"><?php echo esc_html($atts['title']); ?></h2>
+                        <?php if ($linktree_url !== '') : ?>
+                            <a class="ccc-ui-button ccc-ui-button--ghost ccc-ui-contact__linktree" href="<?php echo esc_url($linktree_url); ?>" target="_blank" rel="noopener noreferrer">
+                                <?php echo esc_html((string) $atts['linktree_text']); ?>
+                            </a>
+                        <?php endif; ?>
+                    </header>
 
                     <address class="ccc-ui-contact__grid">
                         <div class="ccc-ui-contact__item">
