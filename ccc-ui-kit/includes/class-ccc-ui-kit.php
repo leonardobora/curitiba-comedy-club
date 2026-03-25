@@ -47,6 +47,7 @@ final class CCC_UI_Kit
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-page-hero.php';
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-section-heading.php';
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-about-block.php';
+        require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-image-frame.php';
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-cta-ingressos.php';
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-menu-section.php';
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-contact-section.php';

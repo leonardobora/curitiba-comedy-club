@@ -17,6 +17,7 @@ final class CCC_UI_Shortcodes
             new CCC_UI_Shortcode_Page_Hero(),
             new CCC_UI_Shortcode_Section_Heading(),
             new CCC_UI_Shortcode_About_Block(),
+            new CCC_UI_Shortcode_Image_Frame(),
             new CCC_UI_Shortcode_CTA_Ingressos(),
             new CCC_UI_Shortcode_Menu_Section(),
             new CCC_UI_Shortcode_Contact_Section(),

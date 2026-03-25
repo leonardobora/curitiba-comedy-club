@@ -89,6 +89,42 @@
     background: var(--ccc-ui-color-accent);
 }
 
+.ccc-ui-image-frame__surface {
+    margin: 0;
+    padding: 14px;
+    border-radius: var(--ccc-ui-radius-lg);
+    border: 1px solid var(--ccc-ui-color-border);
+    background: linear-gradient(170deg, #121212 0%, #0a0a0a 100%);
+    box-shadow: var(--ccc-ui-shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+.ccc-ui-image-frame__surface::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 85% 10%, rgba(213, 0, 28, 0.18), rgba(213, 0, 28, 0) 42%);
+}
+
+.ccc-ui-image-frame__link,
+.ccc-ui-image-frame__image {
+    display: block;
+    width: 100%;
+}
+
+.ccc-ui-image-frame__image {
+    border-radius: var(--ccc-ui-radius-md);
+}
+
+.ccc-ui-image-frame__caption {
+    margin-top: 10px;
+    color: var(--ccc-ui-color-text-muted);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
 .ccc-ui-menu__surface {
     padding: clamp(24px, 4vw, 40px);
     border-radius: var(--ccc-ui-radius-lg);
