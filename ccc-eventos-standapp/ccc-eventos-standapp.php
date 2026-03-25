@@ -19,6 +19,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
     {
         const VERSION = '3.1.0';
         const SHORTCODE = 'eventos_standapp';
+        const SHORTCODE_HOME = 'eventos_standapp_home';
         const API_URL = 'https://api.standapp.com.br/live/presentation/list-by-presentation-hall/2';
         const CACHE_KEY = 'ccc_standapp_eventos_v31';
         const CACHE_TTL = 300; // 5 minutos
@@ -34,7 +35,30 @@ if (!class_exists('CCC_Eventos_Standapp')) {
         public function __construct()
         {
             add_shortcode(self::SHORTCODE, array($this, 'render_shortcode'));
+            add_shortcode(self::SHORTCODE_HOME, array($this, 'render_home_shortcode'));
             add_action('wp_enqueue_scripts', array($this, 'register_assets'));
+        }
+
+        /**
+         * Shortcode dedicado para Home: sempre retorna eventos próximos da semana com limite enxuto.
+         *
+         * @param array $atts
+         * @return string
+         */
+        public function render_home_shortcode($atts = array())
+        {
+            $atts = shortcode_atts(array(
+                'titulo'           => 'Próximos eventos',
+                'limit'            => '6',
+                'dias_proximos'    => '7',
+                'mostrar_filtros'  => 'no',
+                'mostrar_busca'    => 'no',
+                'mostrar_badges'   => 'yes',
+                'cache'            => 'yes',
+                'somente_proximos' => 'yes',
+            ), $atts, self::SHORTCODE_HOME);
+
+            return $this->render_shortcode($atts);
         }
 
         public function register_assets()
@@ -53,12 +77,14 @@ if (!class_exists('CCC_Eventos_Standapp')) {
         public function render_shortcode($atts = array())
         {
             $atts = shortcode_atts(array(
+                'titulo'          => '',
                 'mostrar_filtros' => 'yes',
                 'mostrar_busca'   => 'yes',
                 'mostrar_badges'  => 'yes',
                 'cache'           => 'yes',
                 'somente_proximos' => 'no',
                 'limit'           => '0',
+                'dias_proximos'   => '0',
             ), $atts, self::SHORTCODE);
 
             $use_cache = ($atts['cache'] === 'yes');
@@ -111,6 +137,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
             $somente_proximos = isset($atts['somente_proximos']) && $atts['somente_proximos'] === 'yes';
             $limit = isset($atts['limit']) ? (int) $atts['limit'] : 0;
+            $dias_proximos = isset($atts['dias_proximos']) ? (int) $atts['dias_proximos'] : 0;
 
             if ($somente_proximos) {
                 $events = array_values(array_filter($events, function ($event) {
@@ -119,6 +146,16 @@ if (!class_exists('CCC_Eventos_Standapp')) {
                     }
 
                     return $this->is_future_event((int) $event['timestamp']);
+                }));
+            }
+
+            if ($dias_proximos > 0) {
+                $events = array_values(array_filter($events, function ($event) use ($dias_proximos) {
+                    if (!isset($event['timestamp'])) {
+                        return false;
+                    }
+
+                    return $this->is_within_next_days((int) $event['timestamp'], $dias_proximos);
                 }));
             }
 
@@ -139,6 +176,24 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             $now = new DateTimeImmutable('now', $tz);
 
             return $timestamp >= (int) $now->getTimestamp();
+        }
+
+        /**
+         * @param int $timestamp
+         * @param int $days
+         * @return bool
+         */
+        private function is_within_next_days($timestamp, $days)
+        {
+            if ($days <= 0) {
+                return true;
+            }
+
+            $tz = new DateTimeZone(self::TIMEZONE);
+            $now = new DateTimeImmutable('now', $tz);
+            $max = $now->modify('+' . (int) $days . ' days');
+
+            return $timestamp >= (int) $now->getTimestamp() && $timestamp <= (int) $max->getTimestamp();
         }
 
         private function get_events($use_cache = true)

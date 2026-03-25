@@ -54,7 +54,7 @@ final class CCC_UI_Shortcode_Fullwidth_Carousel
         ?>
         <section class="ccc-ui-section ccc-ui-fullwidth-carousel" data-ccc-ui-component="fullwidth-carousel" data-ccc-carousel-autoplay="<?php echo esc_attr($autoplay); ?>" data-ccc-carousel-interval="<?php echo esc_attr((string) $interval); ?>" style="--ccc-carousel-height-desktop: <?php echo esc_attr((string) $atts['height_desktop']); ?>; --ccc-carousel-height-mobile: <?php echo esc_attr((string) $atts['height_mobile']); ?>;">
             <div class="ccc-ui-fullwidth-carousel__viewport" data-ccc-carousel-viewport>
-                <div class="ccc-ui-fullwidth-carousel__track" data-ccc-carousel-track>
+                <div class="ccc-ui-fullwidth-carousel__track" data-ccc-carousel-track style="display:flex; width:100%; transition:transform .45s ease; transform:translateX(0);">
                     <?php foreach ($images as $index => $image_url) : ?>
                         <?php
                         $safe_image_url = esc_url_raw($image_url);
@@ -63,10 +63,10 @@ final class CCC_UI_Shortcode_Fullwidth_Carousel
                         }
                         $caption = isset($captions[$index]) ? $captions[$index] : '';
                         ?>
-                        <figure class="ccc-ui-fullwidth-carousel__slide" data-ccc-carousel-slide>
-                            <img class="ccc-ui-fullwidth-carousel__image" src="<?php echo esc_url($safe_image_url); ?>" alt="Foto de destaque <?php echo esc_attr((string) ($index + 1)); ?>" loading="lazy">
+                        <figure class="ccc-ui-fullwidth-carousel__slide" data-ccc-carousel-slide style="flex:0 0 100%; margin:0; position:relative;">
+                            <img class="ccc-ui-fullwidth-carousel__image" src="<?php echo esc_url($safe_image_url); ?>" alt="Foto de destaque <?php echo esc_attr((string) ($index + 1)); ?>" loading="lazy" style="display:block; width:100%; height:100%; object-fit:cover;">
                             <?php if ($caption !== '') : ?>
-                                <figcaption class="ccc-ui-fullwidth-carousel__caption"><?php echo esc_html($caption); ?></figcaption>
+                                <figcaption class="ccc-ui-fullwidth-carousel__caption" style="position:absolute; left:24px; right:auto; bottom:24px; margin:0; max-width:min(820px,86vw); padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.2); background:rgba(0,0,0,.62); color:#fff; font-size:14px; line-height:1.45;"><?php echo esc_html($caption); ?></figcaption>
                             <?php endif; ?>
                         </figure>
                     <?php endforeach; ?>

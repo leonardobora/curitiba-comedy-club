@@ -78,9 +78,9 @@ interval="4800"]
 
 [ccc_page_hero title="Curitiba Comedy Club" subtitle="Noites premium de stand-up com atmosfera de espetáculo no coração de Curitiba." heading_level="h1" button_text="Ver programação" button_url="/programacao/"]
 
-[ccc_section_heading kicker="Agenda" title="Shows em destaque" subtitle="Os próximos comediantes e noites especiais da casa."]
+[ccc_section_heading kicker="Agenda" title="Shows em destaque" subtitle="Fique de olho nos eventos que vão acontecer esta semana!"]
 
-[eventos_standapp titulo="Próximos eventos" mostrar_filtros="no" mostrar_busca="no" somente_proximos="yes" limit="6"]
+[eventos_standapp_home titulo="Próximos eventos da semana" limit="6" dias_proximos="7"]
 
 [ccc_home_photo_wall
 title="A casa em uma noite de show"
