@@ -90,10 +90,11 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             $use_cache = ($atts['cache'] === 'yes');
             $events = $this->get_events($use_cache);
             $events = $this->filter_events($events, $atts);
+            $limit_attr = isset($atts['limit']) ? max(0, (int) $atts['limit']) : 0;
 
             ob_start();
 
-            echo '<section class="ccc-standapp-wrap" data-ccc-standapp-root>';
+            echo '<section class="ccc-standapp-wrap" data-ccc-standapp-root data-ccc-limit="' . esc_attr((string) $limit_attr) . '">';
             echo '<div class="ccc-standapp-header">';
 
             if (!empty($atts['titulo'])) {
@@ -655,7 +656,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
     line-height:1.1;
     font-weight:800;
     font-family:"Bitter","Merriweather",Georgia,"Times New Roman",serif;
-    color:#1a1a1a;
+    color:#f5f7fa;
 }
 
 .ccc-standapp-filters{
@@ -682,7 +683,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
     font-weight:700;
     line-height:1.2;
     opacity:.85;
-    color:#1a1a1a;
+    color:#f5f7fa;
 }
 
 .ccc-standapp-input,
@@ -949,7 +950,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
 .ccc-standapp-wrap .ccc-standapp-title,
 .ccc-standapp-wrap .ccc-standapp-label{
-    color:#1a1a1a !important;
+    color:#f5f7fa !important;
 }
 
 @media (max-width: 1024px){
@@ -993,6 +994,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var resetButton = root.querySelector('[data-ccc-filter-reset]');
         var cards = root.querySelectorAll('[data-ccc-card]');
         var noResults = root.querySelector('[data-ccc-no-results]');
+        var limitAttr = parseInt(root.getAttribute('data-ccc-limit') || '0', 10);
+        var eventLimit = isNaN(limitAttr) ? 0 : limitAttr;
 
         function normalizeText(text) {
             return (text || '')
@@ -1017,6 +1020,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 var matchWeekday = !weekdayValue || cardWeekday === weekdayValue;
 
                 var show = matchSearch && matchMonth && matchWeekday;
+
+                if (show && eventLimit > 0 && visibleCount >= eventLimit) {
+                    show = false;
+                }
 
                 card.hidden = !show;
 

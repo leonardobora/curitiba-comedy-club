@@ -29,7 +29,6 @@ final class CCC_UI_Shortcode_Contact_Section
                 'address'   => 'Rua Exemplo, 123 - Curitiba/PR',
                 'whatsapp'  => '(41) 99999-9999',
                 'instagram' => '@curitibacomedy',
-                'email'     => '',
                 'map_url'   => '',
                 'linktree_url' => '',
                 'linktree_text' => 'Acessar Linktree',
@@ -42,8 +41,6 @@ final class CCC_UI_Shortcode_Contact_Section
 
         $phone_display = trim((string) $atts['whatsapp']);
         $phone_link = preg_replace('/[^0-9+]/', '', $phone_display);
-
-        $email = sanitize_email((string) $atts['email']);
 
         $instagram_raw = trim((string) $atts['instagram']);
         $instagram_url = '';
@@ -144,23 +141,6 @@ final class CCC_UI_Shortcode_Contact_Section
                             <?php endif; ?>
                         </div>
 
-                        <div class="ccc-ui-contact__item">
-                            <?php if (!empty($email)) : ?>
-                                <a class="ccc-ui-contact__line ccc-ui-contact__link" href="mailto:<?php echo esc_attr($email); ?>">
-                                    <span class="ccc-ui-contact__icon" aria-hidden="true">
-                                        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm.9 2 8.1 5.6L20.1 7H3.9Zm16.1 10V8.8l-7.4 5.1a1 1 0 0 1-1.2 0L4 8.8V17h16Z"/></svg>
-                                    </span>
-                                    <span class="ccc-ui-contact__value"><?php echo esc_html($email); ?></span>
-                                </a>
-                            <?php else : ?>
-                                <div class="ccc-ui-contact__line">
-                                    <span class="ccc-ui-contact__icon" aria-hidden="true">
-                                        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm.9 2 8.1 5.6L20.1 7H3.9Zm16.1 10V8.8l-7.4 5.1a1 1 0 0 1-1.2 0L4 8.8V17h16Z"/></svg>
-                                    </span>
-                                    <span class="ccc-ui-contact__value"><?php echo esc_html((string) $atts['email']); ?></span>
-                                </div>
-                            <?php endif; ?>
-                        </div>
                     </address>
 
                     <?php if ($map_embed_url !== '') : ?>

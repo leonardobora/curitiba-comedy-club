@@ -68,6 +68,17 @@
         component.addEventListener("mouseenter", stopAutoplay);
         component.addEventListener("mouseleave", startAutoplay);
 
+        // Keep slide positioning stable after zoom or viewport changes.
+        window.addEventListener("resize", render);
+        window.addEventListener("orientationchange", render);
+
+        if (typeof window.ResizeObserver === "function") {
+            var observer = new ResizeObserver(function () {
+                render();
+            });
+            observer.observe(component);
+        }
+
         render();
         startAutoplay();
     }

@@ -193,3 +193,23 @@ Exemplos de naming:
 3. Definir direcao de cabecalho (peso tipografico e teste serifado).
 4. Criar inventario de referencias da pagina antiga para FAQ e Quadros.
 5. Definir curadoria inicial de imagens por pagina e por formato.
+
+## Fechamento do dia (25/03/2026)
+
+Status: entregue em codigo e documentacao; pendente apenas validacao final em ambiente publicado.
+
+Entregas concluidas nesta rodada:
+
+1. Programacao com melhor contraste de titulo/labels em fundo escuro.
+2. Placeholder de busca validado para linguagem neutra (ex: Ary Toledo).
+3. Contato sem e-mail publico e com grade reequilibrada apos remocao do card.
+4. Cardapio sem textos de preenchimento e com copy de producao.
+5. Open Mic documentado como pagina dedicada no mapa de paginas.
+6. Ajustes finais de Home/carrossel e hardening responsivo mantidos no pacote de entrega.
+
+Checklist de publicacao para encerrar a sprint:
+
+1. Limpar cache do WordPress/plugin/CDN apos upload final.
+2. Validar em producao: Home, Programacao, Cardapio, Contato e Open Mic.
+3. Confirmar menu mobile/off-canvas em viewport real de celular.
+4. Congelar baseline com commit final no repositorio.

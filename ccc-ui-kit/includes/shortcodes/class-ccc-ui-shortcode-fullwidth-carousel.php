@@ -27,8 +27,8 @@ final class CCC_UI_Shortcode_Fullwidth_Carousel
             array(
                 'images' => '',
                 'captions' => '',
-                'height_desktop' => 'clamp(320px, 52vw, 620px)',
-                'height_mobile' => '56vw',
+                'height_desktop' => 'clamp(300px, 42vw, 500px)',
+                'height_mobile' => 'clamp(220px, 56vw, 340px)',
                 'autoplay' => 'true',
                 'interval' => '5000',
             ),

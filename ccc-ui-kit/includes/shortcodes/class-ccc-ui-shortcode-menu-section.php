@@ -26,13 +26,13 @@ final class CCC_UI_Shortcode_Menu_Section
         $atts = shortcode_atts(
             array(
                 'title' => 'Cardápio',
-                'subtitle' => 'Drinks, comidas e combinações para sua noite',
-                'description' => 'Acesse nosso cardápio completo em ambiente externo e confira as opções atualizadas.',
-                'food_slots_title' => 'Comidas da casa',
-                'food_slots_note' => 'Organize as categorias abaixo para facilitar a consulta no salão e no digital.',
-                'food_slots' => 'Entradas|Petiscos|Pratos principais|Sobremesas',
+                'subtitle' => 'Bebidas, petiscos, pratos exclusivos e sobremesas',
+                'description' => 'Use o botão principal para abrir o Prato Digital.',
+                'food_slots_title' => 'Espaços de comidas',
+                'food_slots_note' => '',
+                'food_slots' => 'Bebidas|Petiscos|Pratos exclusivos|Especialidades Dom Antonio|Sobremesas',
                 'show_food_slots' => 'true',
-                'button_text' => 'Abrir cardápio',
+                'button_text' => 'Abrir Prato Digital',
                 'button_url' => '',
                 'open_in_new_tab' => 'true',
                 'embed' => 'false',
@@ -94,7 +94,6 @@ final class CCC_UI_Shortcode_Menu_Section
                                 <?php foreach ($food_slots as $slot_label) : ?>
                                     <article class="ccc-ui-menu__slot-item">
                                         <h4 class="ccc-ui-menu__slot-title"><?php echo esc_html($slot_label); ?></h4>
-                                        <p class="ccc-ui-menu__slot-text">Espaço reservado para itens desta categoria.</p>
                                     </article>
                                 <?php endforeach; ?>
                             </div>

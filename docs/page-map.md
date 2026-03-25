@@ -80,7 +80,7 @@ interval="4800"]
 
 [ccc_section_heading kicker="Agenda" title="Shows em destaque" subtitle="Fique de olho nos eventos que vão acontecer esta semana!"]
 
-[eventos_standapp_home titulo="Próximos eventos da semana" limit="6" dias_proximos="7"]
+[eventos_standapp titulo="Próximos eventos da semana" mostrar_filtros="no" mostrar_busca="no" somente_proximos="yes" dias_proximos="7" limit="6"]
 
 [ccc_home_photo_wall
 title="A casa em uma noite de show"
@@ -145,12 +145,12 @@ Snippet base:
 
 [ccc_menu_section
 title="Conheca nosso cardapio"
-subtitle="Drinks, petiscos e combos"
-description="Confira as categorias abaixo e abra a versao em PDF para o cardapio completo atualizado."
+subtitle="Bebidas, petiscos, pratos exclusivos e sobremesas"
+description="Use o botao principal para abrir o Prato Digital."
 food_slots_title="Espacos de comidas"
-food_slots_note="Categorias sugeridas para organizacao da pagina."
-food_slots="Entradas|Petiscos|Pratos principais|Sobremesas"
-button_text="Abrir cardapio em PDF"
+food_slots_note=""
+food_slots="Bebidas|Petiscos|Pratos exclusivos|Especialidades Dom Antonio|Sobremesas"
+button_text="Abrir Prato Digital"
 button_url="https://drive.google.com/file/d/SEU_ID_DO_ARQUIVO/view"
 pdf_url="https://drive.google.com/file/d/SEU_ID_DO_ARQUIVO/view"]
 ```
@@ -182,10 +182,34 @@ Snippet base:
 title="Canais oficiais"
 whatsapp="(41) 99999-9999"
 instagram="@curitibacomedy"
-email=""
 linktree_url="https://linktr.ee/curitibacomedy"
 linktree_text="Abrir Linktree"
 address="Rua Exemplo, 123 - Curitiba/PR"]
+```
+
+## Open Mic (pagina dedicada)
+
+Objetivo da pagina:
+
+- anunciar datas e proposta do formato
+- captar inscricoes de novos comediantes
+- direcionar publico para acompanhar a agenda
+
+Copy inicial sugerida:
+
+- Hero titulo: Open Mic
+- Hero subtitulo: Novos talentos, testes de texto e noites experimentais no palco do Curitiba Comedy Club.
+
+Snippet inicial:
+
+```text
+[ccc_page_hero title="Open Mic" subtitle="Novos talentos, testes de texto e noites experimentais no palco do Curitiba Comedy Club." heading_level="h1"]
+
+[ccc_section_heading kicker="Palco aberto" title="Como funciona" subtitle="No Open Mic, comediantes em desenvolvimento apresentam blocos curtos e o publico acompanha a construcao de novos sets."]
+
+[ccc_about_block title="Quer subir no palco?" text="Fale com a equipe para receber as regras de participacao, datas disponiveis e orientacoes de inscricao." highlights="Vagas limitadas por noite|Selecao por inscricao previa|Ambiente profissional de teste"]
+
+[ccc_cta_ingressos title="Inscricoes e agenda Open Mic" text="Fale com a equipe e acompanhe as proximas datas." button_text="Chamar no WhatsApp" button_url="https://wa.me/554133366258"]
 ```
 
 ## Eventos Privados (pagina dedicada criada)

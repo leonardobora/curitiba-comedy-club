@@ -96,8 +96,7 @@ Todos os estilos seguem prefixo `ccc-ui-` para minimizar conflitos com Astra/Ele
 [ccc_contact_section
 	address="Rua Exemplo, 123 - Curitiba/PR"
 	whatsapp="(41) 99999-9999"
-	instagram="@curitibacomedyclub"
-	email="contato@curitibacomedyclub.com.br"]
+	instagram="@curitibacomedy"]
 ```
 
 ### Plugin `ccc-eventos-standapp`
