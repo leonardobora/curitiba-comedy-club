@@ -26,9 +26,9 @@ final class CCC_UI_Shortcode_CTA_Ingressos
         $atts = shortcode_atts(
             array(
                 'title'       => 'Garanta seu ingresso',
-                'text'        => 'A programacao muda toda semana. Escolha o show e reserve seu lugar.',
+                'text'        => 'A programação muda toda semana. Escolha o show e reserve seu lugar.',
                 'button_text' => 'Comprar agora',
-                'button_url'  => '/programacao/',
+                'button_url'  => 'https://standapp.com.br/parceiro/curitiba-comedy-club',
             ),
             $atts,
             self::TAG

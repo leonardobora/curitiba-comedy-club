@@ -45,12 +45,30 @@
 }
 
 .ccc-ui-section-heading__inner {
-    max-width: 840px;
+    max-width: none;
+    width: 100%;
+    padding: clamp(24px, 4vw, 40px);
+    border-radius: var(--ccc-ui-radius-lg);
+    border: 1px solid var(--ccc-ui-color-border);
+    background: linear-gradient(170deg, #121212 0%, #0a0a0a 100%);
+    box-shadow: var(--ccc-ui-shadow-soft);
+    display: grid;
+    gap: 10px;
 }
 
 .ccc-ui-section-heading--center .ccc-ui-section-heading__inner {
     margin: 0 auto;
     text-align: center;
+}
+
+.ccc-ui-section-heading .ccc-ui-title,
+.ccc-ui-section-heading .ccc-ui-subtitle,
+.ccc-ui-section-heading .ccc-ui-kicker {
+    color: var(--ccc-ui-color-text);
+}
+
+.ccc-ui-section-heading .ccc-ui-kicker {
+    color: var(--ccc-ui-color-accent);
 }
 
 .ccc-ui-about__surface {
@@ -171,6 +189,56 @@
     flex-wrap: wrap;
 }
 
+.ccc-ui-menu__slots {
+    display: grid;
+    gap: 12px;
+}
+
+.ccc-ui-menu__slots-title {
+    margin: 0;
+    color: var(--ccc-ui-color-text);
+    font-family: var(--ccc-ui-font-display);
+    font-size: clamp(24px, 3.4vw, 34px);
+    line-height: 1.15;
+}
+
+.ccc-ui-menu__slots-note {
+    margin: 0;
+    color: var(--ccc-ui-color-text-muted);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.ccc-ui-menu__slots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--ccc-ui-space-3);
+}
+
+.ccc-ui-menu__slot-item {
+    padding: 16px;
+    border-radius: var(--ccc-ui-radius-md);
+    border: 1px solid var(--ccc-ui-color-border);
+    background: rgba(255, 255, 255, 0.03);
+    display: grid;
+    gap: 6px;
+}
+
+.ccc-ui-menu__slot-title {
+    margin: 0;
+    color: var(--ccc-ui-color-text);
+    font-family: var(--ccc-ui-font-display);
+    font-size: clamp(22px, 3vw, 30px);
+    line-height: 1.15;
+}
+
+.ccc-ui-menu__slot-text {
+    margin: 0;
+    color: var(--ccc-ui-color-text-muted);
+    font-size: 14px;
+    line-height: 1.45;
+}
+
 .ccc-ui-contact__surface {
     padding: clamp(24px, 4vw, 40px);
 }
@@ -262,6 +330,10 @@
 }
 
 @media (max-width: 767px) {
+    .ccc-ui-menu__slots-grid {
+        grid-template-columns: 1fr;
+    }
+
     .ccc-ui-contact__grid {
         grid-template-columns: 1fr;
     }

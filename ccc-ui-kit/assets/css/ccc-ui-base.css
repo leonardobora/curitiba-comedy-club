@@ -23,16 +23,16 @@
 }
 
 .ccc-ui-title--lg {
-    font-size: clamp(28px, 5vw, 42px);
+    font-size: clamp(32px, 5.8vw, 50px);
 }
 
 .ccc-ui-kicker {
     margin: 0 0 var(--ccc-ui-space-2);
     color: var(--ccc-ui-color-accent);
     font-weight: 800;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: clamp(14px, 1.5vw, 16px);
 }
 
 .ccc-ui-subtitle,

@@ -26,10 +26,10 @@ final class CCC_UI_Shortcode_About_Block
         $atts = shortcode_atts(
             array(
                 'kicker' => 'Sobre a casa',
-                'title' => 'Comedia premium no coracao de Curitiba',
-                'text' => 'O Curitiba Comedy Club entrega uma experiencia completa: palco intimista, curadoria de comediantes e clima de casa de espetaculo para noites memoraveis.',
-                'highlights' => 'Palco profissional|Drinks e cozinha|Programacao semanal',
-                'button_text' => 'Ver programacao',
+                'title' => 'Comédia premium no coração de Curitiba',
+                'text' => 'O Curitiba Comedy Club entrega uma experiência completa: palco intimista, curadoria de comediantes e clima de casa de espetáculo para noites memoráveis.',
+                'highlights' => 'Palco profissional|Drinks e cozinha|Programação semanal',
+                'button_text' => 'Ver programação',
                 'button_url' => '/programacao/',
             ),
             $atts,

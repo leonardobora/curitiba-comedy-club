@@ -27,8 +27,8 @@ final class CCC_UI_Shortcode_Page_Hero
             array(
                 'kicker'      => 'Curitiba Comedy Club',
                 'title'       => 'Noite premium de stand-up em Curitiba',
-                'subtitle'    => 'Comedia, atmosfera cinematografica e publico apaixonado por humor.',
-                'button_text' => 'Ver programacao',
+                'subtitle'    => 'Comédia, atmosfera cinematográfica e público apaixonado por humor.',
+                'button_text' => 'Ver programação',
                 'button_url'  => '/programacao/',
                 'align'       => 'left',
                 'heading_level' => 'h1',

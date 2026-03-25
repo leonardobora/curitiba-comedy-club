@@ -1,32 +1,53 @@
-# Curitiba Comedy Club - Roadmap (v1)
+# Curitiba Comedy Club - Roadmap (v2)
 
-## Questao de roadmap
+## Objetivo do roadmap
 
-Como montar um site completo, consistente e escalavel para o Curitiba Comedy Club, com identidade Netflix + casa de espetaculo, separando claramente a camada de eventos da camada institucional e usando um pipeline de imagens organizado?
+Planejar um site completo, consistente e escalavel para o Curitiba Comedy Club, com identidade Netflix + casa de espetaculo, separando com clareza a camada de eventos da camada institucional e mantendo um pipeline de imagens organizado.
 
-## Escopo do site completo (paginas)
+## Status do documento
+
+- Este arquivo representa planejamento.
+- Nao substitui checklist tecnico de deploy.
+- Escopo atual: manter fase 1 em andamento e alinhar proxima fila com os pedidos mais recentes.
+
+## Solicitacoes consolidadas (Joca - 25/03/2026)
+
+1. Direcao de fundo mais escuro, com preferencia inicial por vermelho bem escuro (alternativa: preto).
+2. Cabecalho com tipografia mais pesada e avaliacao de opcao serifada alinhada a marca.
+3. Programacao com placeholder de busca neutro: ex: Ary Toledo.
+4. Programacao com texto explicativo abaixo do titulo: agenda publicada com antecedencia aproximada de 1 mes, abertura de terca a sabado, com ressalva para eventos fechados.
+5. Contato sem e-mail publico para reduzir spam.
+6. Instagram oficial exibido como @curitibacomedy.
+7. Telefone rotulado como WhatsApp com regra: somente mensagens, sem ligacoes.
+8. Planejar areas/abas para Open Mic, Eventos Fechados e Quadros da casa.
+9. Recuperar referencias da pagina antiga, incluindo FAQ.
+
+## Escopo de paginas
+
+## Core imediato (fase 1)
 
 1. Home
 2. Sobre
 3. Programacao
 4. Cardapio
 5. Contato
-6. Ingressos (landing dedicada para conversao)
-7. FAQ
-8. Midia/Galeria
-9. Eventos Corporativos (B2B)
-10. Politicas (privacidade, cookies, termos)
 
-Observacao:
+## Expansao planejada (fase 2+)
 
-- As paginas 1 a 5 sao o core imediato.
-- As paginas 6 a 10 entram como expansao de fase 2.
+1. Ingressos (landing dedicada para conversao)
+2. FAQ
+3. Midia/Galeria
+4. Eventos Corporativos (B2B) - pagina dedicada ja criada
+5. Open Mic
+6. Eventos Fechados
+7. Quadros da casa
+8. Politicas (privacidade, cookies, termos)
 
-## Arquitetura de paginas (Netflix + casa de espetaculo)
+## Arquitetura de pagina (macro)
 
 ## Home
 
-Objetivo: impacto + conversao rapida.
+Objetivo: impacto e conversao rapida.
 
 Blocos:
 
@@ -51,13 +72,14 @@ Blocos:
 
 ## Programacao
 
-Objetivo: listar e vender.
+Objetivo: listar, explicar e converter.
 
 Blocos:
 
 - Hero curto
+- Texto institucional curto com regra de agenda (1 mes, terca a sabado, ressalva de eventos fechados)
+- Campo de busca com placeholder: ex: Ary Toledo
 - Grade de eventos ([eventos_standapp])
-- Filtros
 - CTA compra
 
 ## Cardapio
@@ -77,10 +99,14 @@ Objetivo: facilitar acesso e descoberta.
 
 Blocos:
 
-- Hero curto com CTA Linktree (https://linktr.ee/curitibacomedy)
+- Hero curto com CTA Linktree
 - Secao de contato minimalista com icones
 - Mapa embutido Google Maps
-- Acoes rapidas (telefone, e-mail, Instagram, mapa)
+- Acoes rapidas: WhatsApp (mensagens), Instagram (@curitibacomedy), mapa
+
+Observacao:
+
+- Nao expor e-mail publico enquanto regra antispam estiver ativa.
 
 ## Estrutura de imagens recomendada
 
@@ -88,9 +114,9 @@ Criar uma biblioteca de midia organizada por contexto de uso e formato.
 
 ## Fontes aprovadas
 
-- Drone: https://drive.google.com/drive/folders/1PLeT49uZEWQC23ZjTZF_X7HmEXaRkI52
-- Cardapio: https://drive.google.com/drive/folders/1SFZhfguelFpS70Fi_5MaGDeetFzx6pxa
-- Fotos CCC: https://drive.google.com/drive/folders/1kvrzGEiBtnhoW5v54IJlI8WgmzmM0fwg
+- [Drone](https://drive.google.com/drive/folders/1PLeT49uZEWQC23ZjTZF_X7HmEXaRkI52)
+- [Cardapio](https://drive.google.com/drive/folders/1SFZhfguelFpS70Fi_5MaGDeetFzx6pxa)
+- [Fotos CCC](https://drive.google.com/drive/folders/1kvrzGEiBtnhoW5v54IJlI8WgmzmM0fwg)
 
 ## Taxonomia de assets (proposta)
 
@@ -101,7 +127,7 @@ Criar uma biblioteca de midia organizada por contexto de uso e formato.
 5. people/
 6. social/
 
-## Variações por formato
+## Variacoes por formato
 
 1. Desktop hero: 1920x1080 (16:9)
 2. Card horizontal: 1280x720 (16:9)
@@ -109,7 +135,7 @@ Criar uma biblioteca de midia organizada por contexto de uso e formato.
 4. Stories/reels: 1080x1920 (9:16)
 5. Thumb quadrada: 1080x1080 (1:1)
 
-## Padrão tecnico para web
+## Padrao tecnico para web
 
 - Formato principal: WebP
 - Qualidade base: 70-82
@@ -117,7 +143,7 @@ Criar uma biblioteca de midia organizada por contexto de uso e formato.
 - Nome de arquivo sem espacos e com slug
 - Alt text descritivo com contexto
 
-Exemplo de naming:
+Exemplos de naming:
 
 - ccc-home-hero-noite-comedia-v1.webp
 - ccc-cardapio-drink-negroni-v2.webp
@@ -125,10 +151,10 @@ Exemplo de naming:
 
 ## Diretriz visual (tema premium)
 
-- Fundo predominante escuro
+- Fundo predominante escuro com preferencia por vermelho muito escuro no contexto atual
 - Superficies com contraste suave
 - Vermelho como acento de conversao
-- Tipografia forte em titulos
+- Tipografia forte em titulos; testar alternativa serifada no cabecalho
 - Fotos com mood noturno/cinematografico
 - Evitar excesso de elementos por secao
 
@@ -139,28 +165,31 @@ Exemplo de naming:
 - Base do ccc-ui-kit
 - Shortcodes institucionais iniciais
 - Padrao visual principal
+- Ajustes de copy e contato conforme solicitacoes consolidadas
 
 ## Fase 2
 
-- Shortcodes: about, section heading, galeria
-- Paginas Home/Sobre/Contato refinadas
-- Integracao de imagens curadas
+- Paginas Home/Sobre/Contato refinadas com curadoria visual
+- Programacao com texto explicativo e placeholder revisado
+- Galeria inicial para Home e Sobre
 
 ## Fase 3
 
 - Cardapio estruturado com componentes
-- Midia/Galeria
-- FAQ e pagina de Ingressos dedicada
+- Midia/Galeria ampliada
+- FAQ com base no historico da pagina antiga
+- Planejamento de Open Mic, Eventos Fechados e Quadros
 
 ## Fase 4
 
 - Otimizacao de performance de imagem
-- A/B de hero e CTA
+- Testes A/B de hero e CTA
 - Hardening de SEO tecnico
 
 ## Backlog curto (proxima sprint)
 
-1. Adicionar CTA Linktree no cabeçalho da secao de contato.
-2. Criar componente de galeria de fotos para Home e Sobre.
-3. Definir primeira curadoria de imagens por pagina.
-4. Especificar diretrizes de crop por breakpoint (desktop/tablet/mobile).
+1. Consolidar copy da Programacao com texto de agenda e placeholder ex: Ary Toledo.
+2. Ajustar Contato para exibir WhatsApp (somente mensagens) e @curitibacomedy sem e-mail publico.
+3. Definir direcao de cabecalho (peso tipografico e teste serifado).
+4. Criar inventario de referencias da pagina antiga para FAQ e Quadros.
+5. Definir curadoria inicial de imagens por pagina e por formato.

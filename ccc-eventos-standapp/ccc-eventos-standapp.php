@@ -407,7 +407,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             if ($atts['mostrar_busca'] === 'yes') {
                 echo '<div class="ccc-standapp-filter-item ccc-standapp-filter-item--search">';
                 echo '<label class="ccc-standapp-label" for="ccc-standapp-search">Buscar evento</label>';
-                echo '<input type="text" id="ccc-standapp-search" class="ccc-standapp-input" placeholder="Ex: Thiago Ventura" data-ccc-filter-search>';
+                echo '<input type="text" id="ccc-standapp-search" class="ccc-standapp-input" placeholder="Ex: Ary Toledo" data-ccc-filter-search>';
                 echo '</div>';
             }
 
@@ -550,9 +550,10 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
 .ccc-standapp-title{
     margin:0;
-    font-size:clamp(28px,4vw,42px);
+    font-size:clamp(32px,4.8vw,52px);
     line-height:1.1;
     font-weight:800;
+    font-family:"Bitter","Merriweather",Georgia,"Times New Roman",serif;
     color:#1a1a1a;
 }
 
@@ -729,9 +730,10 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
 .ccc-standapp-card-title{
     margin:0;
-    font-size:22px;
+    font-size:clamp(24px,2.4vw,30px);
     line-height:1.2;
     font-weight:800;
+    font-family:"Bitter","Merriweather",Georgia,"Times New Roman",serif;
     word-break:break-word;
     color:#ffffff !important;
 }
@@ -871,7 +873,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
     }
 
     .ccc-standapp-card-title{
-        font-size:20px;
+        font-size:clamp(22px,6vw,26px);
     }
 }
 CSS;
