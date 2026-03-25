@@ -55,28 +55,51 @@ Snippet de montagem:
 
 ## Home
 
-Objetivo da pagina:
+Objetivo da página:
 
 - gerar impacto
 - mostrar prova de agenda ativa
-- levar para conversao
+- levar para conversão
 
 Copy sugerida:
 
 - Hero titulo: Curitiba Comedy Club
 - Hero subtitulo: O palco onde Curitiba encontra as melhores noites de stand-up.
-- CTA primario: Ver programacao
+- CTA primário: Ver programação
 
 Snippet base:
 
 ```text
-[ccc_page_hero title="Curitiba Comedy Club" subtitle="O palco onde Curitiba encontra as melhores noites de stand-up." heading_level="h1" button_text="Ver programação" button_url="/programacao/"]
+[ccc_fullwidth_carousel
+images="https://curitibacomedyclub.com.br/wp-content/uploads/2026/03/home-hero-1.jpg|https://curitibacomedyclub.com.br/wp-content/uploads/2026/03/home-hero-2.jpg|https://curitibacomedyclub.com.br/wp-content/uploads/2026/03/home-hero-3.jpg"
+captions="Noites premium de stand-up em Curitiba.|Casa cheia, palco quente e experiência completa.|Eventos especiais, comediantes convidados e clima de espetáculo."
+autoplay="true"
+interval="4800"]
 
-[ccc_section_heading kicker="Agenda" title="Shows em destaque" subtitle="Os proximos comediantes e noites especiais da casa."]
+[ccc_page_hero title="Curitiba Comedy Club" subtitle="Noites premium de stand-up com atmosfera de espetáculo no coração de Curitiba." heading_level="h1" button_text="Ver programação" button_url="/programacao/"]
 
-[eventos_standapp]
+[ccc_section_heading kicker="Agenda" title="Shows em destaque" subtitle="Os próximos comediantes e noites especiais da casa."]
 
-[ccc_cta_ingressos title="Garanta seu lugar" text="Os melhores lugares acabam rapido. Antecipe sua compra." button_url="https://standapp.com.br/parceiro/curitiba-comedy-club"]
+[eventos_standapp titulo="Próximos eventos" mostrar_filtros="no" mostrar_busca="no" somente_proximos="yes" limit="6"]
+
+[ccc_home_photo_wall
+title="A casa em uma noite de show"
+subtitle="Espaços reservados para fotos reais da experiência Curitiba Comedy Club."
+images="https://curitibacomedyclub.com.br/wp-content/uploads/2026/03/home-foto-1.jpg|https://curitibacomedyclub.com.br/wp-content/uploads/2026/03/home-foto-2.jpg|https://curitibacomedyclub.com.br/wp-content/uploads/2026/03/home-foto-3.jpg|https://curitibacomedyclub.com.br/wp-content/uploads/2026/03/home-foto-4.jpg"
+captions="Plateia lotada|Palco principal|Ambiente do salão|Experiência da noite"]
+
+[ccc_feature_cards
+title="O que torna a noite única"
+subtitle="Diferenciais para quem quer rir, comer bem e viver uma experiência completa."
+items="Line-up de peso::Curadoria de humoristas consagrados e novas revelações.|Casa premium::Conforto, visibilidade e atmosfera cinematográfica.|Gastronomia no ponto::Drinks, petiscos e pratos para acompanhar o show.|Atendimento próximo::Equipe preparada para eventos sociais e corporativos."]
+
+[ccc_split_cta
+title="Escolha sua próxima experiência"
+subtitle="Garanta seus ingressos ou fale com a equipe sobre eventos privados."
+primary_text="Comprar ingressos"
+primary_url="https://standapp.com.br/parceiro/curitiba-comedy-club"
+secondary_text="Eventos privados"
+secondary_url="https://wa.me/554133366258"]
 ```
 
 ## Sobre

@@ -57,10 +57,13 @@ if (!class_exists('CCC_Eventos_Standapp')) {
                 'mostrar_busca'   => 'yes',
                 'mostrar_badges'  => 'yes',
                 'cache'           => 'yes',
+                'somente_proximos' => 'no',
+                'limit'           => '0',
             ), $atts, self::SHORTCODE);
 
             $use_cache = ($atts['cache'] === 'yes');
             $events = $this->get_events($use_cache);
+            $events = $this->filter_events($events, $atts);
 
             ob_start();
 
@@ -93,6 +96,49 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             echo '</section>';
 
             return ob_get_clean();
+        }
+
+        /**
+         * @param array $events
+         * @param array $atts
+         * @return array
+         */
+        private function filter_events($events, $atts)
+        {
+            if (!is_array($events)) {
+                return array();
+            }
+
+            $somente_proximos = isset($atts['somente_proximos']) && $atts['somente_proximos'] === 'yes';
+            $limit = isset($atts['limit']) ? (int) $atts['limit'] : 0;
+
+            if ($somente_proximos) {
+                $events = array_values(array_filter($events, function ($event) {
+                    if (!isset($event['timestamp'])) {
+                        return false;
+                    }
+
+                    return $this->is_future_event((int) $event['timestamp']);
+                }));
+            }
+
+            if ($limit > 0) {
+                $events = array_slice($events, 0, $limit);
+            }
+
+            return $events;
+        }
+
+        /**
+         * @param int $timestamp
+         * @return bool
+         */
+        private function is_future_event($timestamp)
+        {
+            $tz = new DateTimeZone(self::TIMEZONE);
+            $now = new DateTimeImmutable('now', $tz);
+
+            return $timestamp >= (int) $now->getTimestamp();
         }
 
         private function get_events($use_cache = true)
