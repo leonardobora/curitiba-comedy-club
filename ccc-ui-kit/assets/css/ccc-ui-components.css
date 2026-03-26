@@ -277,7 +277,7 @@
     flex: 0 0 100%;
     margin: 0;
     position: relative;
-    min-height: clamp(150px, 22vw, 240px);
+    min-height: clamp(120px, 16vw, 190px);
     overflow: hidden;
 }
 

@@ -49,7 +49,7 @@ final class CCC_UI_Shortcode_Page_Hero
                 <div class="ccc-ui-hero__surface">
                     <p class="ccc-ui-kicker"><?php echo esc_html($atts['kicker']); ?></p>
                     <<?php echo esc_html($heading_level); ?> class="ccc-ui-title ccc-ui-title--xl"><?php echo esc_html($atts['title']); ?></<?php echo esc_html($heading_level); ?>>
-                    <p class="ccc-ui-subtitle"><?php echo esc_html($atts['subtitle']); ?></p>
+                    <p class="ccc-ui-subtitle"><?php echo nl2br(esc_html((string) $atts['subtitle'])); ?></p>
                     <div class="ccc-ui-actions">
                         <a class="ccc-ui-button ccc-ui-button--primary" href="<?php echo esc_url($atts['button_url']); ?>">
                             <?php echo esc_html($atts['button_text']); ?>
