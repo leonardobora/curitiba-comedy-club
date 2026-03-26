@@ -25,6 +25,9 @@ final class CCC_UI_Shortcodes
             new CCC_UI_Shortcode_CTA_Ingressos(),
             new CCC_UI_Shortcode_Menu_Section(),
             new CCC_UI_Shortcode_Contact_Section(),
+            new CCC_UI_Shortcode_Timeline(),
+            new CCC_UI_Shortcode_Accordion(),
+            new CCC_UI_Shortcode_Section_Nav(),
         );
 
         foreach ($this->shortcode_objects as $shortcode) {

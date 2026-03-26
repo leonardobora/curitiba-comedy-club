@@ -28,10 +28,11 @@ final class CCC_UI_Shortcode_Contact_Section
                 'title'     => 'Contato',
                 'address'   => 'Rua Exemplo, 123 - Curitiba/PR',
                 'whatsapp'  => '(41) 99999-9999',
+                'whatsapp_note' => 'Somente mensagens. Não atendemos ligações.',
                 'instagram' => '@curitibacomedy',
                 'map_url'   => '',
                 'linktree_url' => '',
-                'linktree_text' => 'Acessar Linktree',
+                'linktree_text' => 'Chamar no WhatsApp',
             ),
             $atts,
             self::TAG
@@ -40,7 +41,10 @@ final class CCC_UI_Shortcode_Contact_Section
         $address = trim((string) $atts['address']);
 
         $phone_display = trim((string) $atts['whatsapp']);
-        $phone_link = preg_replace('/[^0-9+]/', '', $phone_display);
+        $phone_digits = preg_replace('/\D+/', '', $phone_display);
+        $whatsapp_note = trim((string) $atts['whatsapp_note']);
+        $whatsapp_text = rawurlencode('Oi! Tudo bem? Quero falar com o Curitiba Comedy Club.');
+        $whatsapp_url = $phone_digits !== '' ? 'https://wa.me/' . $phone_digits . '?text=' . $whatsapp_text : '';
 
         $instagram_raw = trim((string) $atts['instagram']);
         $instagram_url = '';
@@ -69,7 +73,7 @@ final class CCC_UI_Shortcode_Contact_Section
 
         $linktree_url = trim((string) $atts['linktree_url']);
         if ($linktree_url === '') {
-            $linktree_url = 'https://linktr.ee/curitibacomedy';
+            $linktree_url = $whatsapp_url;
         }
 
         ob_start();
@@ -106,19 +110,27 @@ final class CCC_UI_Shortcode_Contact_Section
                         </div>
 
                         <div class="ccc-ui-contact__item">
-                            <?php if (!empty($phone_link)) : ?>
-                                <a class="ccc-ui-contact__line ccc-ui-contact__link" href="tel:<?php echo esc_attr($phone_link); ?>">
+                            <?php if ($whatsapp_url !== '') : ?>
+                                <a class="ccc-ui-contact__line ccc-ui-contact__link" href="<?php echo esc_url($whatsapp_url); ?>" target="_blank" rel="noopener noreferrer">
                                     <span class="ccc-ui-contact__icon" aria-hidden="true">
                                         <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.3 11.3 0 0 0 3.56.57 1 1 0 0 1 1 1V21a1 1 0 0 1-1 1A18 18 0 0 1 2 4a1 1 0 0 1 1-1h4.5a1 1 0 0 1 1 1 11.3 11.3 0 0 0 .57 3.56 1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
                                     </span>
-                                    <span class="ccc-ui-contact__value"><?php echo esc_html($phone_display); ?></span>
+                                    <span class="ccc-ui-contact__value"><?php echo esc_html($phone_display); ?>
+                                        <?php if ($whatsapp_note !== '') : ?>
+                                            <small class="ccc-ui-contact__value-note"><?php echo esc_html($whatsapp_note); ?></small>
+                                        <?php endif; ?>
+                                    </span>
                                 </a>
                             <?php else : ?>
                                 <div class="ccc-ui-contact__line">
                                     <span class="ccc-ui-contact__icon" aria-hidden="true">
                                         <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.3 11.3 0 0 0 3.56.57 1 1 0 0 1 1 1V21a1 1 0 0 1-1 1A18 18 0 0 1 2 4a1 1 0 0 1 1-1h4.5a1 1 0 0 1 1 1 11.3 11.3 0 0 0 .57 3.56 1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
                                     </span>
-                                    <span class="ccc-ui-contact__value"><?php echo esc_html($phone_display); ?></span>
+                                    <span class="ccc-ui-contact__value"><?php echo esc_html($phone_display); ?>
+                                        <?php if ($whatsapp_note !== '') : ?>
+                                            <small class="ccc-ui-contact__value-note"><?php echo esc_html($whatsapp_note); ?></small>
+                                        <?php endif; ?>
+                                    </span>
                                 </div>
                             <?php endif; ?>
                         </div>

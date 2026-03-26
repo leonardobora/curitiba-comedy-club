@@ -31,6 +31,7 @@ final class CCC_UI_Shortcode_Menu_Section
                 'food_slots_title' => 'Espaços de comidas',
                 'food_slots_note' => '',
                 'food_slots' => 'Bebidas|Petiscos|Pratos exclusivos|Especialidades Dom Antonio|Sobremesas',
+                'food_slot_texts' => 'Seleção de drinks clássicos, autorais e não alcoólicos para todos os momentos.|Entradas para compartilhar, porções da casa e opções para acompanhar o show.|Pratos principais com assinatura da cozinha e foco em experiência completa.|Receitas da casa com identidade do Dom Antonio e combinações exclusivas.|Finalizações doces para fechar a noite com equilíbrio e sabor.',
                 'show_food_slots' => 'true',
                 'button_text' => 'Abrir Prato Digital',
                 'button_url' => '',
@@ -49,6 +50,7 @@ final class CCC_UI_Shortcode_Menu_Section
         $button_url = esc_url_raw((string) $atts['button_url']);
         $pdf_url = esc_url_raw((string) $atts['pdf_url']);
         $food_slots = $this->parse_pipe_list((string) $atts['food_slots']);
+        $food_slot_texts = $this->parse_pipe_list((string) $atts['food_slot_texts']);
 
         if ($button_url === '' && $pdf_url !== '') {
             $button_url = $pdf_url;
@@ -91,9 +93,13 @@ final class CCC_UI_Shortcode_Menu_Section
                             <?php endif; ?>
 
                             <div class="ccc-ui-menu__slots-grid">
-                                <?php foreach ($food_slots as $slot_label) : ?>
+                                <?php foreach ($food_slots as $index => $slot_label) : ?>
                                     <article class="ccc-ui-menu__slot-item">
                                         <h4 class="ccc-ui-menu__slot-title"><?php echo esc_html($slot_label); ?></h4>
+
+                                        <?php if (isset($food_slot_texts[$index]) && $food_slot_texts[$index] !== '') : ?>
+                                            <p class="ccc-ui-menu__slot-text"><?php echo esc_html($food_slot_texts[$index]); ?></p>
+                                        <?php endif; ?>
                                     </article>
                                 <?php endforeach; ?>
                             </div>

@@ -49,10 +49,19 @@ final class CCC_UI_Shortcode_Feature_Cards
 
                     <div class="ccc-ui-feature-cards__grid">
                         <?php foreach ($items as $item) : ?>
-                            <article class="ccc-ui-feature-cards__item">
-                                <h3 class="ccc-ui-feature-cards__item-title"><?php echo esc_html($item['title']); ?></h3>
-                                <?php if ($item['text'] !== '') : ?>
-                                    <p class="ccc-ui-feature-cards__item-text"><?php echo esc_html($item['text']); ?></p>
+                            <article class="ccc-ui-feature-cards__item<?php echo $item['url'] !== '' ? ' ccc-ui-feature-cards__item--linked' : ''; ?>">
+                                <?php if ($item['url'] !== '') : ?>
+                                    <a class="ccc-ui-feature-cards__item-link" href="<?php echo esc_url($item['url']); ?>">
+                                        <h3 class="ccc-ui-feature-cards__item-title"><?php echo esc_html($item['title']); ?></h3>
+                                        <?php if ($item['text'] !== '') : ?>
+                                            <p class="ccc-ui-feature-cards__item-text"><?php echo esc_html($item['text']); ?></p>
+                                        <?php endif; ?>
+                                    </a>
+                                <?php else : ?>
+                                    <h3 class="ccc-ui-feature-cards__item-title"><?php echo esc_html($item['title']); ?></h3>
+                                    <?php if ($item['text'] !== '') : ?>
+                                        <p class="ccc-ui-feature-cards__item-text"><?php echo esc_html($item['text']); ?></p>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </article>
                         <?php endforeach; ?>
@@ -75,15 +84,16 @@ final class CCC_UI_Shortcode_Feature_Cards
         $items = array();
 
         foreach ($rows as $row) {
-            $parts = explode('::', $row, 2);
+            $parts = explode('::', $row, 3);
             $items[] = array(
                 'title' => isset($parts[0]) ? trim($parts[0]) : '',
                 'text' => isset($parts[1]) ? trim($parts[1]) : '',
+                'url' => isset($parts[2]) ? esc_url_raw(trim($parts[2])) : '',
             );
         }
 
         if (empty($items)) {
-            $items[] = array('title' => 'Experiência completa', 'text' => 'Estrutura e atendimento para uma noite memorável.');
+            $items[] = array('title' => 'Experiência completa', 'text' => 'Estrutura e atendimento para uma noite memorável.', 'url' => '');
         }
 
         return $items;

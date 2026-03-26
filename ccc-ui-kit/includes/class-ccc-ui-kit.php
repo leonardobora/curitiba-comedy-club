@@ -55,6 +55,9 @@ final class CCC_UI_Kit
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-cta-ingressos.php';
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-menu-section.php';
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-contact-section.php';
+        require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-timeline.php';
+        require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-accordion.php';
+        require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-section-nav.php';
     }
 
     private function boot_modules()
