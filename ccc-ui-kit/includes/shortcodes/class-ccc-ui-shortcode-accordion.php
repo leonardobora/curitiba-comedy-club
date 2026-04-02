@@ -28,7 +28,7 @@ final class CCC_UI_Shortcode_Accordion
                 'kicker' => '',
                 'title' => 'Perguntas sobre a casa',
                 'subtitle' => 'Detalhes importantes para quem quer conhecer melhor o Curitiba Comedy Club.',
-                'items' => 'O Curitiba Comedy Club foi mesmo pioneiro?::Sim. A casa foi inaugurada em 2010 como o primeiro comedy club dedicado do Brasil.|O que mudou com a nova fase?::A operacao evoluiu com nova sede em Santa Felicidade, mantendo o legado do palco e ampliando a experiencia.|Como funciona o Open Mic?::O formato e voltado para testes de texto e desenvolvimento de novos comediantes, com curadoria da casa.',
+                'items' => 'O Curitiba Comedy Club foi mesmo pioneiro?::Sim. A casa foi inaugurada em 2010 como o primeiro comedy club dedicado do Brasil.|O que mudou com a nova fase?::A operação evoluiu com nova sede em Santa Felicidade, mantendo o legado do palco e ampliando a experiência.|Como funciona o Open Mic?::O formato é voltado para testes de texto e desenvolvimento de novos comediantes, com curadoria da casa.',
                 'open_first' => 'true',
                 'allow_multiple' => 'false',
             ),
@@ -135,7 +135,7 @@ final class CCC_UI_Shortcode_Accordion
         if (empty($items)) {
             $items[] = array(
                 'title' => 'Pergunta frequente',
-                'text' => 'Resposta em atualizacao.',
+                'text' => 'Resposta em atualização.',
             );
         }
 

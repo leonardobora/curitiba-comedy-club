@@ -31,6 +31,7 @@ final class CCC_UI_Shortcode_Fullwidth_Carousel
                 'height_mobile' => 'clamp(220px, 56vw, 340px)',
                 'autoplay' => 'true',
                 'interval' => '5000',
+                'alt_prefix' => 'Foto de destaque',
             ),
             $atts,
             self::TAG
@@ -64,7 +65,7 @@ final class CCC_UI_Shortcode_Fullwidth_Carousel
                         $caption = isset($captions[$index]) ? $captions[$index] : '';
                         ?>
                         <figure class="ccc-ui-fullwidth-carousel__slide" data-ccc-carousel-slide style="flex:0 0 100%; margin:0; position:relative;">
-                            <img class="ccc-ui-fullwidth-carousel__image" src="<?php echo esc_url($safe_image_url); ?>" alt="Foto de destaque <?php echo esc_attr((string) ($index + 1)); ?>" loading="lazy" style="display:block; width:100%; height:100%; object-fit:cover;">
+                            <img class="ccc-ui-fullwidth-carousel__image" src="<?php echo esc_url($safe_image_url); ?>" alt="<?php echo esc_attr(trim((string) $atts['alt_prefix'])); ?> <?php echo esc_attr((string) ($index + 1)); ?>" loading="lazy" style="display:block; width:100%; height:100%; object-fit:cover;">
                             <?php if ($caption !== '') : ?>
                                 <figcaption class="ccc-ui-fullwidth-carousel__caption" style="position:absolute; left:24px; right:auto; bottom:24px; margin:0; max-width:min(820px,86vw); padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.2); background:rgba(0,0,0,.62); color:#fff; font-size:14px; line-height:1.45;"><?php echo esc_html($caption); ?></figcaption>
                             <?php endif; ?>

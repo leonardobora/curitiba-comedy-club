@@ -179,6 +179,7 @@ Exemplos de naming:
 - Midia/Galeria ampliada
 - FAQ com base no historico da pagina antiga
 - Planejamento de Open Mic, Eventos Fechados e Quadros
+- Pagina Quadros da Casa (carrossel de fotos dos quadros de famosos com artefatos e recordacoes)
 
 ## Fase 4
 
@@ -193,6 +194,8 @@ Exemplos de naming:
 3. Definir direcao de cabecalho (peso tipografico e teste serifado).
 4. Criar inventario de referencias da pagina antiga para FAQ e Quadros.
 5. Definir curadoria inicial de imagens por pagina e por formato.
+6. Criar pagina Quadros da Casa com carrossel de fotos dos quadros de famosos (artefatos, lembrancas e recordacoes historicas do clube).
+7. Integrar Google Tag Manager (GTM-T67592D9) e validar rastreamento com equipe de marketing.
 
 ## Fechamento do dia (25/03/2026)
 
@@ -213,3 +216,22 @@ Checklist de publicacao para encerrar a sprint:
 2. Validar em producao: Home, Programacao, Cardapio, Contato e Open Mic.
 3. Confirmar menu mobile/off-canvas em viewport real de celular.
 4. Congelar baseline com commit final no repositorio.
+
+## Fechamento do dia (02/04/2026)
+
+Status: refatoracao de shortcodes e preparacao de rastreamento concluidas.
+
+Entregas concluidas nesta rodada:
+
+1. Auditoria completa de textos hardcoded em todos os 14 shortcodes do ccc-ui-kit.
+2. Refatoracao de 5 componentes (contact-section, menu-section, fullwidth-carousel, home-photo-wall, timeline) para expor textos fixos como atributos editaveis via shortcode.
+3. Correcao ortografica de 11 erros de acentuacao/cedilha em timeline e accordion.
+4. Instalacao do Google Tag Manager (GTM-T67592D9) via WPCode — script no head e noscript no body.
+5. Documentacao de guia de shortcodes para administrador do site (docs/guia-shortcodes.md).
+6. Roadmap atualizado com pagina Quadros da Casa e integracao GTM no backlog.
+
+Proximos passos:
+
+1. Validar GTM com equipe de marketing (Joao Madalosso) e desativar snippets duplicados (Meta Pixel, Google Ads) quando migrados para o GTM.
+2. Criar pagina Quadros da Casa com carrossel de fotos dos quadros de famosos.
+3. Subir plugins atualizados via FTP para ambiente de producao.

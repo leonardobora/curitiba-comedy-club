@@ -33,6 +33,9 @@ final class CCC_UI_Shortcode_Contact_Section
                 'map_url'   => '',
                 'linktree_url' => '',
                 'linktree_text' => 'Chamar no WhatsApp',
+                'whatsapp_message' => 'Oi! Tudo bem? Quero falar com o Curitiba Comedy Club.',
+                'map_title' => 'Mapa do local do Curitiba Comedy Club',
+                'map_button_text' => 'Ver local no mapa',
             ),
             $atts,
             self::TAG
@@ -43,7 +46,7 @@ final class CCC_UI_Shortcode_Contact_Section
         $phone_display = trim((string) $atts['whatsapp']);
         $phone_digits = preg_replace('/\D+/', '', $phone_display);
         $whatsapp_note = trim((string) $atts['whatsapp_note']);
-        $whatsapp_text = rawurlencode('Oi! Tudo bem? Quero falar com o Curitiba Comedy Club.');
+        $whatsapp_text = rawurlencode(trim((string) $atts['whatsapp_message']));
         $whatsapp_url = $phone_digits !== '' ? 'https://wa.me/' . $phone_digits . '?text=' . $whatsapp_text : '';
 
         $instagram_raw = trim((string) $atts['instagram']);
@@ -163,7 +166,7 @@ final class CCC_UI_Shortcode_Contact_Section
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"
                                 allowfullscreen
-                                title="Mapa do local do Curitiba Comedy Club">
+                                title="<?php echo esc_attr(trim((string) $atts['map_title'])); ?>">
                             </iframe>
                         </div>
                     <?php endif; ?>
@@ -171,7 +174,7 @@ final class CCC_UI_Shortcode_Contact_Section
                     <?php if ($map_url !== '') : ?>
                         <p class="ccc-ui-contact__map-link-wrap">
                             <a class="ccc-ui-button ccc-ui-button--ghost" href="<?php echo esc_url($map_url); ?>" target="_blank" rel="noopener noreferrer">
-                                Ver local no mapa
+                                <?php echo esc_html(trim((string) $atts['map_button_text'])); ?>
                             </a>
                         </p>
                     <?php endif; ?>

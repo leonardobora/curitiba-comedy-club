@@ -38,6 +38,8 @@ final class CCC_UI_Shortcode_Menu_Section
                 'open_in_new_tab' => 'true',
                 'embed' => 'false',
                 'pdf_url' => '',
+                'pdf_button_text' => 'Ver cardápio em PDF',
+                'embed_placeholder' => 'Em breve: visualização embutida do cardápio.',
             ),
             $atts,
             self::TAG
@@ -78,7 +80,7 @@ final class CCC_UI_Shortcode_Menu_Section
 
                     <?php if ($embed) : ?>
                         <div class="ccc-ui-menu__embed-placeholder" data-ccc-ui-menu-embed-placeholder>
-                            Em breve: visualização embutida do cardápio.
+                            <?php echo esc_html(trim((string) $atts['embed_placeholder'])); ?>
                         </div>
                     <?php endif; ?>
 
@@ -115,7 +117,7 @@ final class CCC_UI_Shortcode_Menu_Section
 
                         <?php if ($pdf_url !== '') : ?>
                             <a class="ccc-ui-button ccc-ui-button--ghost" href="<?php echo esc_url($pdf_url); ?>" target="<?php echo esc_attr($target); ?>"<?php echo $rel !== '' ? ' rel="' . esc_attr($rel) . '"' : ''; ?>>
-                                Ver cardápio em PDF
+                                <?php echo esc_html(trim((string) $atts['pdf_button_text'])); ?>
                             </a>
                         <?php endif; ?>
                     </div>

@@ -31,6 +31,7 @@ final class CCC_UI_Shortcode_Home_Photo_Wall
                 'captions' => '',
                 'autoplay' => 'true',
                 'interval' => '4200',
+                'alt_prefix' => 'Foto da casa',
             ),
             $atts,
             self::TAG
@@ -74,7 +75,7 @@ final class CCC_UI_Shortcode_Home_Photo_Wall
                                 }
                                 ?>
                                 <figure class="ccc-ui-home-photo-wall__item" data-ccc-carousel-slide>
-                                    <img class="ccc-ui-home-photo-wall__image" src="<?php echo esc_url($safe_image_url); ?>" alt="Foto da casa <?php echo esc_attr((string) ($index + 1)); ?>" loading="lazy">
+                                    <img class="ccc-ui-home-photo-wall__image" src="<?php echo esc_url($safe_image_url); ?>" alt="<?php echo esc_attr(trim((string) $atts['alt_prefix'])); ?> <?php echo esc_attr((string) ($index + 1)); ?>" loading="lazy">
                                     <?php if ($caption !== '') : ?>
                                         <figcaption class="ccc-ui-home-photo-wall__caption"><?php echo esc_html($caption); ?></figcaption>
                                     <?php endif; ?>

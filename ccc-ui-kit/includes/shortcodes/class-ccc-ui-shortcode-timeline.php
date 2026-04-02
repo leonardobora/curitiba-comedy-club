@@ -25,10 +25,11 @@ final class CCC_UI_Shortcode_Timeline
     {
         $atts = shortcode_atts(
             array(
-                'kicker' => 'Nossa historia',
+                'kicker' => 'Nossa história',
                 'title' => 'Linha do tempo',
                 'subtitle' => 'Marcos que moldaram o Curitiba Comedy Club.',
-                'items' => '2010::Inauguracao pioneira::Nasce o primeiro comedy club dedicado do Brasil em Curitiba.|2020::Pausa da operacao::A pandemia forca o encerramento da sede original.|2021::Renascimento::A casa volta em Santa Felicidade, preservando o legado do palco.|Hoje::Nova fase::Curadoria nacional, Open Mic e experiencia completa de entretenimento.',
+                'items' => '2010::Inauguração pioneira::Nasce o primeiro comedy club dedicado do Brasil em Curitiba.|2020::Pausa da operação::A pandemia força o encerramento da sede original.|2021::Renascimento::A casa volta em Santa Felicidade, preservando o legado do palco.|Hoje::Nova fase::Curadoria nacional, Open Mic e experiência completa de entretenimento.',
+                'alt_prefix' => 'Marco histórico',
             ),
             $atts,
             self::TAG
@@ -68,7 +69,7 @@ final class CCC_UI_Shortcode_Timeline
 
                                     <?php if ($item['image_url'] !== '') : ?>
                                         <figure class="ccc-ui-timeline__figure">
-                                            <img class="ccc-ui-timeline__image" src="<?php echo esc_url($item['image_url']); ?>" alt="Marco historico: <?php echo esc_attr($item['title']); ?>" loading="lazy">
+                                            <img class="ccc-ui-timeline__image" src="<?php echo esc_url($item['image_url']); ?>" alt="<?php echo esc_attr(trim((string) $atts['alt_prefix'])); ?>: <?php echo esc_attr($item['title']); ?>" loading="lazy">
                                         </figure>
                                     <?php endif; ?>
                                 </div>
@@ -105,8 +106,8 @@ final class CCC_UI_Shortcode_Timeline
         if (empty($items)) {
             $items[] = array(
                 'period' => 'Hoje',
-                'title' => 'Historia em construcao',
-                'text' => 'A casa segue escrevendo novos capitulos com publico e artistas.',
+                'title' => 'História em construção',
+                'text' => 'A casa segue escrevendo novos capítulos com público e artistas.',
                 'image_url' => '',
             );
         }
