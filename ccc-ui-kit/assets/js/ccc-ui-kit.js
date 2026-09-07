@@ -424,6 +424,23 @@
         });
     }
 
+    function getLogoUrl() {
+        var img = document.querySelector("img.custom-logo");
+        if (!img) {
+            return "";
+        }
+        var srcset = img.getAttribute("srcset") || "";
+        var parts = srcset.split(",").filter(Boolean);
+        if (parts.length) {
+            var last = parts[parts.length - 1].trim();
+            var url = last.split(" ")[0];
+            if (url) {
+                return url;
+            }
+        }
+        return img.getAttribute("src") || "";
+    }
+
     function initCurtain() {
         // Somente na Home, uma vez por sessão, respeitando acessibilidade.
         if (!document.body.classList.contains("home")) {
@@ -452,8 +469,30 @@
         var right = document.createElement("div");
         right.className = "ccc-ui-curtain__panel ccc-ui-curtain__panel--right";
 
+        var spotLeft = document.createElement("div");
+        spotLeft.className = "ccc-ui-curtain__spotlight ccc-ui-curtain__spotlight--left";
+        var spotRight = document.createElement("div");
+        spotRight.className = "ccc-ui-curtain__spotlight ccc-ui-curtain__spotlight--right";
+        var glow = document.createElement("div");
+        glow.className = "ccc-ui-curtain__glow";
+
+        curtain.appendChild(spotLeft);
+        curtain.appendChild(spotRight);
+        curtain.appendChild(glow);
         curtain.appendChild(left);
         curtain.appendChild(right);
+
+        var logoUrl = getLogoUrl();
+        if (logoUrl) {
+            var logo = document.createElement("div");
+            logo.className = "ccc-ui-curtain__logo";
+            var logoImg = document.createElement("img");
+            logoImg.src = logoUrl;
+            logoImg.alt = "Curitiba Comedy Club";
+            logo.appendChild(logoImg);
+            curtain.appendChild(logo);
+        }
+
         document.body.appendChild(curtain);
 
         // Em telas de toque (mobile), abre mais rápido.
@@ -482,15 +521,20 @@
         curtain.addEventListener("click", dismiss);
         curtain.addEventListener("touchstart", dismiss, { passive: true });
 
-        // Pinta o estado fechado e só então abre, garantindo a transição.
+        // Sequência: pinta fechado, acende holofotes/logo, segura um instante,
+        // então abre as cortinas devagar e apaga os efeitos.
         window.requestAnimationFrame(function () {
             window.requestAnimationFrame(function () {
-                curtain.classList.add("is-open");
+                curtain.classList.add("is-ready");
             });
         });
 
+        window.setTimeout(function () {
+            curtain.classList.add("is-open");
+        }, 1500);
+
         // Rede de segurança: nunca deixa o site preso atrás da cortina.
-        window.setTimeout(dismiss, 2600);
+        window.setTimeout(dismiss, 4200);
     }
 
     document.addEventListener("DOMContentLoaded", function () {

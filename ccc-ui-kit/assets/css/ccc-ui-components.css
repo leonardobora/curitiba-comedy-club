@@ -1420,6 +1420,7 @@
     top: 0;
     bottom: 0;
     width: 50.6%;
+    z-index: 1;
     background-color: #4a0710;
     background-image:
         repeating-linear-gradient(
@@ -1432,7 +1433,7 @@
             rgba(0, 0, 0, 0.16) 9px
         );
     background-size: 36px 100%;
-    transition: transform 1.15s cubic-bezier(0.77, 0, 0.18, 1);
+    transition: transform 1.7s cubic-bezier(0.77, 0, 0.18, 1);
     will-change: transform;
 }
 
@@ -1457,7 +1458,118 @@
 }
 
 .ccc-ui-curtain--fast .ccc-ui-curtain__panel {
-    transition-duration: 0.7s;
+    transition-duration: 1s;
+}
+
+/* Holofotes direcionados ao centro */
+.ccc-ui-curtain__spotlight {
+    position: absolute;
+    top: -16vh;
+    width: 46vw;
+    height: 90vh;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1s ease;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 240, 200, 0.30) 0%,
+        rgba(255, 240, 200, 0.06) 68%,
+        rgba(255, 240, 200, 0) 100%
+    );
+    clip-path: polygon(47% 0%, 53% 0%, 100% 100%, 0% 100%);
+    filter: blur(4px);
+}
+
+.ccc-ui-curtain__spotlight--left {
+    left: -10vw;
+    transform-origin: top center;
+    transform: rotate(14deg);
+}
+
+.ccc-ui-curtain__spotlight--right {
+    right: -10vw;
+    transform-origin: top center;
+    transform: rotate(-14deg);
+}
+
+.ccc-ui-curtain.is-ready .ccc-ui-curtain__spotlight {
+    opacity: 1;
+}
+
+.ccc-ui-curtain.is-ready .ccc-ui-curtain__spotlight--left {
+    animation: ccc-ui-spot-left 5.5s ease-in-out infinite;
+}
+
+.ccc-ui-curtain.is-ready .ccc-ui-curtain__spotlight--right {
+    animation: ccc-ui-spot-right 5.5s ease-in-out infinite;
+}
+
+@keyframes ccc-ui-spot-left {
+    0%, 100% { transform: rotate(12deg); }
+    50% { transform: rotate(17deg); }
+}
+
+@keyframes ccc-ui-spot-right {
+    0%, 100% { transform: rotate(-12deg); }
+    50% { transform: rotate(-17deg); }
+}
+
+/* Luz de fundo onde os holofotes convergem */
+.ccc-ui-curtain__glow {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: 620px;
+    height: 620px;
+    max-width: 120vw;
+    max-height: 120vw;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    background: radial-gradient(
+        circle,
+        rgba(255, 240, 200, 0.22) 0%,
+        rgba(255, 240, 200, 0.06) 45%,
+        rgba(255, 240, 200, 0) 70%
+    );
+}
+
+.ccc-ui-curtain.is-ready .ccc-ui-curtain__glow {
+    opacity: 1;
+}
+
+/* Logo central */
+.ccc-ui-curtain__logo {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+    z-index: 4;
+    transform: translate(-50%, -50%);
+    width: min(240px, 52vw);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.ccc-ui-curtain__logo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.55));
+}
+
+.ccc-ui-curtain.is-ready .ccc-ui-curtain__logo {
+    opacity: 1;
+}
+
+/* Ao abrir, apaga luzes e logo enquanto as cortinas se afastam */
+.ccc-ui-curtain.is-open .ccc-ui-curtain__spotlight,
+.ccc-ui-curtain.is-open .ccc-ui-curtain__glow,
+.ccc-ui-curtain.is-open .ccc-ui-curtain__logo {
+    opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
