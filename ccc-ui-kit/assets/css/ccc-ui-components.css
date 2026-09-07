@@ -1461,36 +1461,29 @@
     transition-duration: 1s;
 }
 
-/* Holofotes direcionados ao centro */
+/* Holofotes direcionados ao centro (convergem no logo) */
 .ccc-ui-curtain__spotlight {
     position: absolute;
-    top: -16vh;
-    width: 46vw;
-    height: 90vh;
+    inset: 0;
     z-index: 3;
     pointer-events: none;
     opacity: 0;
     transition: opacity 1s ease;
     background: linear-gradient(
         180deg,
-        rgba(255, 240, 200, 0.30) 0%,
-        rgba(255, 240, 200, 0.06) 68%,
-        rgba(255, 240, 200, 0) 100%
+        rgba(255, 240, 200, 0.32) 0%,
+        rgba(255, 240, 200, 0.08) 55%,
+        rgba(255, 240, 200, 0.01) 100%
     );
-    clip-path: polygon(47% 0%, 53% 0%, 100% 100%, 0% 100%);
-    filter: blur(4px);
+    filter: blur(3px);
 }
 
 .ccc-ui-curtain__spotlight--left {
-    left: -10vw;
-    transform-origin: top center;
-    transform: rotate(14deg);
+    clip-path: polygon(10vw 0, 22vw 0, 56vw 44vh, 30vw 44vh);
 }
 
 .ccc-ui-curtain__spotlight--right {
-    right: -10vw;
-    transform-origin: top center;
-    transform: rotate(-14deg);
+    clip-path: polygon(90vw 0, 78vw 0, 44vw 44vh, 70vw 44vh);
 }
 
 .ccc-ui-curtain.is-ready .ccc-ui-curtain__spotlight {
@@ -1498,28 +1491,24 @@
 }
 
 .ccc-ui-curtain.is-ready .ccc-ui-curtain__spotlight--left {
-    animation: ccc-ui-spot-left 5.5s ease-in-out infinite;
+    animation: ccc-ui-beam-pulse 4.5s ease-in-out infinite;
 }
 
 .ccc-ui-curtain.is-ready .ccc-ui-curtain__spotlight--right {
-    animation: ccc-ui-spot-right 5.5s ease-in-out infinite;
+    animation: ccc-ui-beam-pulse 4.5s ease-in-out infinite;
+    animation-delay: 1.1s;
 }
 
-@keyframes ccc-ui-spot-left {
-    0%, 100% { transform: rotate(12deg); }
-    50% { transform: rotate(17deg); }
-}
-
-@keyframes ccc-ui-spot-right {
-    0%, 100% { transform: rotate(-12deg); }
-    50% { transform: rotate(-17deg); }
+@keyframes ccc-ui-beam-pulse {
+    0%, 100% { filter: blur(3px) brightness(1); }
+    50% { filter: blur(3px) brightness(1.3); }
 }
 
 /* Luz de fundo onde os holofotes convergem */
 .ccc-ui-curtain__glow {
     position: absolute;
     left: 50%;
-    top: 46%;
+    top: 44%;
     width: 620px;
     height: 620px;
     max-width: 120vw;
@@ -1539,6 +1528,12 @@
 
 .ccc-ui-curtain.is-ready .ccc-ui-curtain__glow {
     opacity: 1;
+    animation: ccc-ui-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes ccc-ui-glow-pulse {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.4); }
 }
 
 /* Logo central */

@@ -3,7 +3,7 @@
  * Plugin Name: CCC UI Kit
  * Plugin URI: https://curitibacomedyclub.com.br/
  * Description: Design system and institutional shortcodes for Curitiba Comedy Club.
- * Version: 0.3.1
+ * Version: 0.3.2
  * Author: Curitiba Comedy Club
  * License: GPL2+
  * Text Domain: ccc-ui-kit
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 }
 
 if (!defined('CCC_UI_KIT_VERSION')) {
-    define('CCC_UI_KIT_VERSION', '0.3.1');
+    define('CCC_UI_KIT_VERSION', '0.3.2');
 }
 
 if (!defined('CCC_UI_KIT_FILE')) {

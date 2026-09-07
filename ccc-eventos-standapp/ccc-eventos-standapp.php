@@ -3,7 +3,7 @@
  * Plugin Name: CCC Eventos Standapp
  * Plugin URI: https://curitibacomedyclub.com.br/
  * Description: Lista eventos do Curitiba Comedy Club via API Standapp com shortcode [eventos_standapp].
- * Version: 3.2.0
+ * Version: 3.2.1
  * Author: Curitiba Comedy Club
  * License: GPL2+
  * Text Domain: ccc-eventos-standapp
@@ -17,9 +17,10 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
     final class CCC_Eventos_Standapp
     {
-        const VERSION = '3.2.0';
+        const VERSION = '3.2.1';
         const SHORTCODE = 'eventos_standapp';
         const SHORTCODE_HOME = 'eventos_standapp_home';
+        const SHORTCODE_HOJE = 'eventos_standapp_hoje';
         const API_URL = 'https://api.standapp.com.br/live/presentation/list-by-presentation-hall/2';
         const CACHE_KEY = 'ccc_standapp_eventos_v311';
         const CACHE_TTL = 300; // 5 minutos
@@ -36,6 +37,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
         {
             add_shortcode(self::SHORTCODE, array($this, 'render_shortcode'));
             add_shortcode(self::SHORTCODE_HOME, array($this, 'render_home_shortcode'));
+            add_shortcode(self::SHORTCODE_HOJE, array($this, 'render_today_banner'));
             add_action('wp_enqueue_scripts', array($this, 'register_assets'));
         }
 
@@ -59,6 +61,95 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             ), $atts, self::SHORTCODE_HOME);
 
             return $this->render_shortcode($atts);
+        }
+
+        /**
+         * Banner horizontal com o ingresso de hoje. Dinamicamente atualizado:
+         * usa a mesma fonte da agenda e é escondido no cliente se a data não
+         * for mais hoje (blindagem contra page cache).
+         *
+         * @param array $atts
+         * @return string
+         */
+        public function render_today_banner($atts = array())
+        {
+            $atts = shortcode_atts(array(
+                'label'  => 'Hoje',
+                'cta'    => 'Comprar ingresso',
+                'cache'  => 'yes',
+            ), $atts, self::SHORTCODE_HOJE);
+
+            $events = $this->get_events($atts['cache'] === 'yes');
+            $today_event = $this->find_today_event($events);
+
+            if (empty($today_event) || empty($today_event['timestamp'])) {
+                return '';
+            }
+
+            $tz = new DateTimeZone(self::TIMEZONE);
+            $date_key = (new DateTimeImmutable('@' . (int) $today_event['timestamp']))->setTimezone($tz)->format('Y-m-d');
+
+            ob_start();
+
+            echo '<div class="ccc-standapp-today" data-ccc-today data-timestamp="' . esc_attr((string) $today_event['timestamp']) . '" data-date="' . esc_attr($date_key) . '">';
+            echo '<div class="ccc-standapp-today__info">';
+            echo '<span class="ccc-standapp-today__label">' . esc_html($atts['label']) . '</span>';
+
+            if (!empty($today_event['title'])) {
+                echo '<span class="ccc-standapp-today__title">' . esc_html($today_event['title']) . '</span>';
+            }
+
+            if (!empty($today_event['time_label'])) {
+                echo '<span class="ccc-standapp-today__time">às ' . esc_html($today_event['time_label']) . '</span>';
+            }
+
+            echo '</div>';
+
+            if (!empty($today_event['buy_url'])) {
+                echo '<a class="ccc-standapp-today__cta" href="' . esc_url($today_event['buy_url']) . '" target="_blank" rel="noopener noreferrer">' . esc_html($atts['cta']) . '</a>';
+            }
+
+            echo '</div>';
+
+            return ob_get_clean();
+        }
+
+        /**
+         * Retorna o próximo evento de hoje (mais cedo) ou null se não houver.
+         *
+         * @param array $events
+         * @return array|null
+         */
+        private function find_today_event($events)
+        {
+            if (!is_array($events) || empty($events)) {
+                return null;
+            }
+
+            $tz = new DateTimeZone(self::TIMEZONE);
+            $today = (new DateTimeImmutable('now', $tz))->format('Y-m-d');
+            $today_events = array();
+
+            foreach ($events as $event) {
+                if (empty($event['timestamp'])) {
+                    continue;
+                }
+
+                $dt = (new DateTimeImmutable('@' . (int) $event['timestamp']))->setTimezone($tz);
+                if ($dt->format('Y-m-d') === $today) {
+                    $today_events[] = $event;
+                }
+            }
+
+            if (empty($today_events)) {
+                return null;
+            }
+
+            usort($today_events, function ($a, $b) {
+                return ((int) $a['timestamp']) <=> ((int) $b['timestamp']);
+            });
+
+            return $today_events[0];
         }
 
         public function register_assets()
@@ -1055,6 +1146,92 @@ if (!class_exists('CCC_Eventos_Standapp')) {
         font-size:clamp(22px,6vw,26px);
     }
 }
+
+/* Banner "ingresso de hoje" */
+.ccc-standapp-today{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin:0 0 24px;
+    padding:14px 18px;
+    border-radius:16px;
+    background:linear-gradient(135deg, #1c0a0f 0%, #0d0d0d 100%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 10px 28px rgba(0,0,0,.25);
+    color:#ffffff;
+}
+
+.ccc-standapp-today__info{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    min-width:0;
+}
+
+.ccc-standapp-today__label{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:28px;
+    padding:5px 11px;
+    border-radius:999px;
+    background:#e11d48;
+    color:#ffffff !important;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+}
+
+.ccc-standapp-today__title{
+    font-family:"Bitter","Merriweather",Georgia,"Times New Roman",serif;
+    font-size:clamp(17px,2vw,21px);
+    font-weight:800;
+    line-height:1.2;
+    color:#ffffff !important;
+    word-break:break-word;
+}
+
+.ccc-standapp-today__time{
+    font-size:14px;
+    font-weight:700;
+    color:rgba(255,255,255,.82) !important;
+    white-space:nowrap;
+}
+
+.ccc-standapp-today__cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:44px;
+    padding:0 18px;
+    border-radius:12px;
+    background:linear-gradient(135deg, #e8112b 0%, #7a0b1e 100%);
+    color:#ffffff !important;
+    text-decoration:none !important;
+    font-size:14px;
+    font-weight:800;
+    white-space:nowrap;
+    transition:transform .18s ease, filter .18s ease;
+}
+
+.ccc-standapp-today__cta:hover{
+    transform:translateY(-1px);
+    filter:brightness(1.1);
+}
+
+@media (max-width: 767px){
+    .ccc-standapp-today{
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .ccc-standapp-today__cta{
+        width:100%;
+    }
+}
 CSS;
         }
 
@@ -1211,6 +1388,21 @@ document.addEventListener('DOMContentLoaded', function () {
         cards.forEach(recalcBadges);
 
         applyFilters();
+    });
+
+    // Banner "ingresso de hoje": esconde se a data não for mais hoje
+    // (blindagem contra page cache servindo o banner de um dia anterior).
+    document.querySelectorAll('[data-ccc-today]').forEach(function (el) {
+        var ts = parseInt(el.getAttribute('data-timestamp') || '', 10);
+        if (isNaN(ts)) {
+            return;
+        }
+        var now = new Date();
+        var startToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 1000;
+        var startTomorrow = startToday + 86400;
+        if (ts < startToday || ts >= startTomorrow) {
+            el.style.display = 'none';
+        }
     });
 });
 JS;

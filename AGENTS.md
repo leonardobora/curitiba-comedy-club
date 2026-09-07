@@ -28,6 +28,10 @@ shortcodes). Docs de apoio em `docs/` (`architecture.md`, `page-map.md`,
   O token é JWT do backend (Hasura). **Nunca commite token novo neste repo.**
 - Arquivo único: `ccc-eventos-standapp/ccc-eventos-standapp.php`
   (classe `CCC_Eventos_Standapp`).
+- Shortcodes: `[eventos_standapp]` (grade), `[eventos_standapp_home]`
+  (compacto), `[eventos_standapp_hoje]` (banner horizontal com o ingresso de
+  hoje — usa `find_today_event()` e se auto-esconde no cliente se a data não
+  for mais hoje).
 - Cache em 2 camadas:
   1. `transient` `ccc_standapp_eventos_v311` (TTL 300s). **Ao mudar qualquer
      regra de normalização/filtro, troque o sufixo da chave** (ex.: `v312`)
