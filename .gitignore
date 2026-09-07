@@ -1,0 +1,16 @@
+# Dependências / runtime
+node_modules/
+
+# Config e segredos locais — NUNCA commitar
+.mcp.json
+mcp-wordpress/
+mcp_err.log
+skills-lock.json
+
+# Config de ferramentas locais
+.agents/
+.claude/
+.vscode/
+
+# Artefatos locais (não pertencem ao plugin)
+ccc-eventos-standapp/.htaccess

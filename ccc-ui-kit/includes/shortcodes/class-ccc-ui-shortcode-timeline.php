@@ -30,18 +30,20 @@ final class CCC_UI_Shortcode_Timeline
                 'subtitle' => 'Marcos que moldaram o Curitiba Comedy Club.',
                 'items' => '2010::Inauguração pioneira::Nasce o primeiro comedy club dedicado do Brasil em Curitiba.|2020::Pausa da operação::A pandemia força o encerramento da sede original.|2021::Renascimento::A casa volta em Santa Felicidade, preservando o legado do palco.|Hoje::Nova fase::Curadoria nacional, Open Mic e experiência completa de entretenimento.',
                 'alt_prefix' => 'Marco histórico',
+                'reveal' => 'yes',
             ),
             $atts,
             self::TAG
         );
 
         $items = $this->parse_items((string) $atts['items']);
+        $reveal = $atts['reveal'] !== 'no';
 
         ob_start();
         ?>
         <section class="ccc-ui-section ccc-ui-timeline" data-ccc-ui-component="timeline">
             <div class="ccc-ui-container">
-                <article class="ccc-ui-timeline__surface">
+                <article class="ccc-ui-timeline__surface<?php echo $reveal ? ' ccc-ui-reveal' : ''; ?>"<?php echo $reveal ? ' data-ccc-reveal' : ''; ?>>
                     <header class="ccc-ui-timeline__header">
                         <?php if ((string) $atts['kicker'] !== '') : ?>
                             <p class="ccc-ui-kicker"><?php echo esc_html((string) $atts['kicker']); ?></p>

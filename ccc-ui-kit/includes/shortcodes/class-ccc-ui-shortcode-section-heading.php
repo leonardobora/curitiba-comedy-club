@@ -29,16 +29,18 @@ final class CCC_UI_Shortcode_Section_Heading
                 'title' => 'Curitiba Comedy Club',
                 'subtitle' => '',
                 'align' => 'left',
+                'reveal' => 'yes',
             ),
             $atts,
             self::TAG
         );
 
         $align = in_array($atts['align'], array('left', 'center'), true) ? $atts['align'] : 'left';
+        $reveal = $atts['reveal'] !== 'no';
 
         ob_start();
         ?>
-        <section class="ccc-ui-section ccc-ui-section-heading ccc-ui-section-heading--<?php echo esc_attr($align); ?>" data-ccc-ui-component="section-heading">
+        <section class="ccc-ui-section ccc-ui-section-heading ccc-ui-section-heading--<?php echo esc_attr($align); ?><?php echo $reveal ? ' ccc-ui-reveal' : ''; ?>" data-ccc-ui-component="section-heading"<?php echo $reveal ? ' data-ccc-reveal' : ''; ?>>
             <div class="ccc-ui-container">
                 <header class="ccc-ui-section-heading__inner">
                     <?php if ($atts['kicker'] !== '') : ?>

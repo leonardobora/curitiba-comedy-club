@@ -6,7 +6,9 @@
     --ccc-ui-color-text-muted: #c8c8c8;
     --ccc-ui-color-accent: #d5001c;
     --ccc-ui-color-accent-hover: #ef233c;
-    --ccc-ui-color-border: rgba(255, 255, 255, 0.12);
+    --ccc-ui-color-border: rgba(255, 255, 255, 0.08);
+    --ccc-ui-color-hairline: rgba(255, 255, 255, 0.05);
+    --ccc-ui-gradient-velvet: linear-gradient(135deg, #e8112b 0%, #7a0b1e 100%);
 
     --ccc-ui-font-display: "Bitter", "Merriweather", Georgia, "Times New Roman", serif;
     --ccc-ui-font-body: "Montserrat", "Segoe UI", Arial, sans-serif;
@@ -24,4 +26,6 @@
 
     --ccc-ui-shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.28);
     --ccc-ui-shadow-strong: 0 16px 42px rgba(0, 0, 0, 0.4);
+
+    --ccc-ui-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }

@@ -29,14 +29,19 @@ final class CCC_UI_Shortcode_CTA_Ingressos
                 'text'        => 'A programação muda toda semana. Escolha o show e reserve seu lugar.',
                 'button_text' => 'Comprar agora',
                 'button_url'  => 'https://standapp.com.br/parceiro/curitiba-comedy-club',
+                'reveal' => 'yes',
+                'sticky_mobile' => 'no',
             ),
             $atts,
             self::TAG
         );
 
+        $reveal = $atts['reveal'] !== 'no';
+        $sticky = $atts['sticky_mobile'] === 'yes';
+
         ob_start();
         ?>
-        <section class="ccc-ui-section ccc-ui-cta-ingressos" data-ccc-ui-component="cta-ingressos">
+        <section class="ccc-ui-section ccc-ui-cta-ingressos<?php echo $reveal ? ' ccc-ui-reveal' : ''; ?><?php echo $sticky ? ' ccc-ui-cta-ingressos--sticky' : ''; ?>" data-ccc-ui-component="cta-ingressos"<?php echo $reveal ? ' data-ccc-reveal' : ''; ?>>
             <div class="ccc-ui-container">
                 <div class="ccc-ui-cta-ingressos__surface">
                     <h2 class="ccc-ui-title ccc-ui-title--lg"><?php echo esc_html($atts['title']); ?></h2>

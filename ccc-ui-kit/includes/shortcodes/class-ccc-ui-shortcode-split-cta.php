@@ -31,14 +31,17 @@ final class CCC_UI_Shortcode_Split_CTA
                 'primary_url' => '/programacao/',
                 'secondary_text' => 'Eventos privados',
                 'secondary_url' => '/eventos-privados/',
+                'reveal' => 'yes',
             ),
             $atts,
             self::TAG
         );
 
+        $reveal = $atts['reveal'] !== 'no';
+
         ob_start();
         ?>
-        <section class="ccc-ui-section ccc-ui-split-cta" data-ccc-ui-component="split-cta">
+        <section class="ccc-ui-section ccc-ui-split-cta<?php echo $reveal ? ' ccc-ui-reveal' : ''; ?>" data-ccc-ui-component="split-cta"<?php echo $reveal ? ' data-ccc-reveal' : ''; ?>>
             <div class="ccc-ui-container">
                 <article class="ccc-ui-split-cta__surface">
                     <h2 class="ccc-ui-title ccc-ui-title--lg"><?php echo esc_html((string) $atts['title']); ?></h2>

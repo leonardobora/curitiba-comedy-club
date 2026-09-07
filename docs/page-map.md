@@ -95,6 +95,10 @@ title="O que torna a noite única"
 subtitle="Diferenciais para quem quer rir, comer bem e viver uma experiência completa."
 items="Line-up de peso::Curadoria de humoristas consagrados e novas revelações.|Casa premium::Conforto, visibilidade e atmosfera cinematográfica.|Gastronomia no ponto::Drinks, petiscos e pratos para acompanhar o show.|Atendimento próximo::Equipe preparada para eventos sociais e corporativos."]
 
+[ccc_stats items="+15::anos de história|2000+::shows realizados|500+::comediantes no palco|10000+::noites de risada"]
+
+[ccc_testimonials kicker="4.7 estrelas no Google" title="Quem já viveu essa noite" items="Simplesmente a melhor casa de show de Curitiba! Comida deliciosa, atendimento excelente e shows bem produzidos. Recomendo de olhos fechados!::Mariane Vanolli::5 estrelas no Google|O lugar perfeito pra dar boas risadas. Ambiente aconchegante, clima intimista e estrutura impecável. Já virou parada obrigatória pra mim em Curitiba!::Leonardo Portes::5 estrelas no Google|Excelente para casais, grupos de amigos e até quem prefere curtir sozinho. Iluminação e som perfeitos, artistas que interagem com a plateia. Sensacional!::Fernando Lopes::5 estrelas no Google|A casa é linda e o local, dentro de um restaurante tradicional, é fantástico. O show compensou tudo!::Maurini de Souza::5 estrelas no Google|Lugar maravilhoso e aconchegante. Onde você esquece os problemas com tantas risadas. Amei!::Maria Belen L. Duarte::5 estrelas no Google|Fui no show do Eros Prado, super legal e tive o prazer de fazer parte do show!::Luana Opaloski::5 estrelas no Google" autoplay="1" interval="6000" review_url="https://search.google.com/local/writereview?placeid=ChIJSd9l2KTm3JQR1KBSeF4kRi8" review_text="Deixe sua avaliação no Google"]
+
 [ccc_split_cta
 title="Escolha sua próxima experiência"
 subtitle="Garanta seus ingressos ou fale com a equipe sobre eventos privados."
@@ -290,6 +294,45 @@ Snippet inicial:
 
 [ccc_cta_ingressos title="Fale com o comercial" text="Conte o objetivo do seu evento e montamos uma proposta." button_text="Chamar no WhatsApp" button_url="https://wa.me/554133366258"]
 ```
+
+## Quadros da Casa (pagina dedicada - draft)
+
+Objetivo da pagina:
+
+- digitalizar o museu vivo das paredes da casa
+- destacar artistas que passaram pelo palco
+- reforcar narrativa de legado e pioneirismo
+
+Copy sugerida:
+
+- Hero titulo: Quadros da Casa
+- Hero subtitulo: As paredes que contam a historia da comedia brasileira.
+
+Snippet base:
+
+```text
+[ccc_page_hero title="Quadros da Casa" subtitle="As paredes que contam a história da comédia brasileira." heading_level="h1" button_text="Ver programação" button_url="/programacao/"]
+
+[ccc_section_heading kicker="Museu vivo" title="Cada quadro, uma história" subtitle="Fotografias, autógrafos e recordações de quem passou pelo palco mais importante do stand-up nacional."]
+
+[ccc_about_block kicker="Desde 2010" title="O palco que revelou uma geração" text="De Danilo Gentili no show inaugural a Afonso Padilha testando suas primeiras piadas, passando por Emerson Ceará que começou como garçom e saiu como headliner — cada quadro na parede do Curitiba Comedy Club guarda uma história real da comédia brasileira. As próprias paredes da casa funcionam como o mais autêntico museu vivo do stand-up no Brasil, documentando a evolução da arte em tempo real." highlights="Danilo Gentili — show inaugural de 2010|Afonso Padilha — do palco do CCC à Netflix|Emerson Ceará — de gar��om a headliner nacional|Claudinho Castro — batizou o CCC de Rede Globo do Stand-up"]
+
+[ccc_timeline kicker="Marcos da casa" title="Artistas que passaram por aqui" subtitle="Nomes que ajudaram a construir a história do Curitiba Comedy Club e da comédia nacional." items="2010::Danilo Gentili::Show inaugural do Curitiba Comedy Club. Depois de conhecer a casa por dentro, levou o modelo para São Paulo e abriu o Comedians Comedy Club.|2010-2020::Afonso Padilha::Testou suas primeiras piadas no palco do CCC. Hoje tem especiais na Netflix e turnês internacionais com casas lotadas na Europa.|2010-2020::Emerson Ceará::Começou como garçom na casa original, absorveu a mecânica da comédia servindo mesas e fez a transição do salão direto para o palco.|2010-2020::Claudinho Castro::Presença constante no palco, cunhou o apelido que ficou: o CCC como a Rede Globo do Stand-up.|Ongoing::Tesão Piá::Grupo de comédia que explora o dialeto e a cultura curitibana, presença regular na programação da casa.|Festival::Alexandre Nadolny, Evandro Faria, Will Maionese::Comediantes que se apresentaram no CCC durante edições do Festival de Curitiba."]
+
+[ccc_divider]
+
+[ccc_about_block kicker="Memória preservada" title="As tábuas que viajaram" text="Quando a casa se mudou para Santa Felicidade em 2021, as tábuas originais do palco de 2010 foram desmontadas, preservadas e reinstaladas no novo espaço — as mesmas tábuas onde os maiores nomes do Brasil se apresentaram antes da fama. A parede de tijolos foi recriada fielmente. Os objetos autografados com dedicatórias vieram junto. O novo endereço carrega a alma do original." highlights="Tábuas originais do palco de 2010 preservadas|Parede de tijolos recriada fielmente|Objetos autografados com dedicatórias dos artistas|Copa CCC de Stand-Up — 8+ ediç��es revelando talentos"]
+
+[ccc_stats items="+15::anos de palco|2000+::shows realizados|500+::comediantes revelados|8+::edições da Copa CCC"]
+
+[ccc_cta_ingressos title="Venha ver de perto" text="Os quadros est��o na parede esperando você. Garanta seu ingresso e conheça o museu vivo da comédia." button_text="Ver programação" button_url="/programacao/"]
+```
+
+Observacao:
+
+- Pagina criada como draft (ID #1096, slug: quadros-da-casa).
+- Pendente: fotos reais dos quadros nas paredes (solicitar ao Joca).
+- Quando as fotos estiverem disponiveis, inserir carrossel entre o section_heading e o primeiro about_block.
 
 ## Checklist rapido de publicacao
 

@@ -3,7 +3,7 @@
  * Plugin Name: CCC Eventos Standapp
  * Plugin URI: https://curitibacomedyclub.com.br/
  * Description: Lista eventos do Curitiba Comedy Club via API Standapp com shortcode [eventos_standapp].
- * Version: 3.1.0
+ * Version: 3.2.0
  * Author: Curitiba Comedy Club
  * License: GPL2+
  * Text Domain: ccc-eventos-standapp
@@ -17,11 +17,11 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
     final class CCC_Eventos_Standapp
     {
-        const VERSION = '3.1.0';
+        const VERSION = '3.2.0';
         const SHORTCODE = 'eventos_standapp';
         const SHORTCODE_HOME = 'eventos_standapp_home';
         const API_URL = 'https://api.standapp.com.br/live/presentation/list-by-presentation-hall/2';
-        const CACHE_KEY = 'ccc_standapp_eventos_v31';
+        const CACHE_KEY = 'ccc_standapp_eventos_v311';
         const CACHE_TTL = 300; // 5 minutos
         const TIMEZONE = 'America/Sao_Paulo';
 
@@ -82,7 +82,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
                 'mostrar_busca'   => 'yes',
                 'mostrar_badges'  => 'yes',
                 'cache'           => 'yes',
-                'somente_proximos' => 'no',
+                'somente_proximos' => 'yes',
                 'limit'           => '0',
                 'dias_proximos'   => '0',
             ), $atts, self::SHORTCODE);
@@ -91,10 +91,14 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             $events = $this->get_events($use_cache);
             $events = $this->filter_events($events, $atts);
             $limit_attr = isset($atts['limit']) ? max(0, (int) $atts['limit']) : 0;
+            $current_month = $this->get_current_month_key();
+            $render_dt = new DateTimeImmutable('now', new DateTimeZone(self::TIMEZONE));
 
             ob_start();
 
-            echo '<section class="ccc-standapp-wrap" data-ccc-standapp-root data-ccc-limit="' . esc_attr((string) $limit_attr) . '">';
+            echo '<section class="ccc-standapp-wrap" data-ccc-standapp-root data-ccc-limit="' . esc_attr((string) $limit_attr) . '" data-ccc-current-month="' . esc_attr($current_month) . '">';
+            echo '<!-- CCC agenda por Leonardo Bora, eximio programador -->';
+            echo '<!-- CCC agenda renderizada em ' . esc_html($render_dt->format('Y-m-d H:i P')) . ' -->';
             echo '<div class="ccc-standapp-header">';
 
             if (!empty($atts['titulo'])) {
@@ -195,6 +199,21 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             $max = $now->modify('+' . (int) $days . ' days');
 
             return $timestamp >= (int) $now->getTimestamp() && $timestamp <= (int) $max->getTimestamp();
+        }
+
+        /**
+         * Mês atual (Y-m) no timezone da casa. Usado para pré-selecionar
+         * o filtro de mês e esconder meses passados (ex.: abrir em
+         * setembro em vez de agosto).
+         *
+         * @return string
+         */
+        private function get_current_month_key()
+        {
+            $tz = new DateTimeZone(self::TIMEZONE);
+            $now = new DateTimeImmutable('now', $tz);
+
+            return $now->format('Y-m');
         }
 
         private function get_events($use_cache = true)
@@ -502,6 +521,18 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
             ksort($months);
 
+            // Esconde meses passados: compara Y-m como string (ex.: 2026-08 < 2026-09).
+            $current_month = $this->get_current_month_key();
+            foreach (array_keys($months) as $month_key) {
+                if (strcmp((string) $month_key, $current_month) < 0) {
+                    unset($months[$month_key]);
+                }
+            }
+
+            // Pré-seleciona o mês atual quando houver eventos nele;
+            // senão, cai para "Todos" (não força um mês passado).
+            $default_month = isset($months[$current_month]) ? $current_month : '';
+
             ob_start();
 
             echo '<div class="ccc-standapp-filters" data-ccc-filters>';
@@ -515,11 +546,12 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
             echo '<div class="ccc-standapp-filter-item">';
             echo '<label class="ccc-standapp-label" for="ccc-standapp-month">Mês</label>';
-            echo '<select id="ccc-standapp-month" class="ccc-standapp-select" data-ccc-filter-month>';
+            echo '<select id="ccc-standapp-month" class="ccc-standapp-select" data-ccc-filter-month data-ccc-default-month="' . esc_attr($default_month) . '">';
             echo '<option value="">Todos</option>';
 
             foreach ($months as $value => $label) {
-                echo '<option value="' . esc_attr($value) . '">' . esc_html($label) . '</option>';
+                $selected = ((string) $value === (string) $default_month) ? ' selected' : '';
+                echo '<option value="' . esc_attr($value) . '"' . $selected . '>' . esc_html($label) . '</option>';
             }
 
             echo '</select>';
@@ -554,6 +586,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             $search_blob = esc_attr($event['search_blob']);
             $month_key = esc_attr($event['month_key']);
             $weekday = esc_attr((string) $event['weekday_index']);
+            $timestamp = isset($event['timestamp']) ? esc_attr((string) $event['timestamp']) : '';
 
             ob_start();
 
@@ -562,16 +595,19 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             echo ' data-search="' . $search_blob . '"';
             echo ' data-month="' . $month_key . '"';
             echo ' data-weekday="' . $weekday . '"';
+            echo ' data-timestamp="' . $timestamp . '"';
             echo '>';
 
             if (!empty($event['banner_url'])) {
                 echo '<div class="ccc-standapp-card-media">';
                 echo '<img class="ccc-standapp-card-image" src="' . esc_url($event['banner_url']) . '" alt="' . esc_attr($image_alt) . '" loading="lazy">';
                 
-                if ($atts['mostrar_badges'] === 'yes' && !empty($event['badges'])) {
-                    echo '<div class="ccc-standapp-badges">';
-                    foreach ($event['badges'] as $badge) {
-                        echo '<span class="ccc-standapp-badge">' . esc_html($badge) . '</span>';
+                if ($atts['mostrar_badges'] === 'yes') {
+                    echo '<div class="ccc-standapp-badges" data-ccc-badges>';
+                    if (!empty($event['badges'])) {
+                        foreach ($event['badges'] as $badge) {
+                            echo '<span class="ccc-standapp-badge">' . esc_html($badge) . '</span>';
+                        }
                     }
                     echo '</div>';
                 }
@@ -632,6 +668,19 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             echo '<div class="ccc-standapp-empty">';
             echo '<h3 class="ccc-standapp-empty-title">Nenhum evento disponível no momento</h3>';
             echo '<p class="ccc-standapp-empty-text">A programação será atualizada em breve. Volte daqui a pouco para conferir os próximos shows.</p>';
+            echo '</div>';
+
+            echo '<div class="ccc-standapp-grid" aria-hidden="true">';
+            for ($i = 0; $i < 3; $i++) {
+                echo '<div class="ccc-standapp-card ccc-standapp-skeleton-card">';
+                echo '<div class="ccc-standapp-skeleton ccc-standapp-skeleton--media"></div>';
+                echo '<div class="ccc-standapp-card-content">';
+                echo '<div class="ccc-standapp-skeleton ccc-standapp-skeleton--line" style="width:40%"></div>';
+                echo '<div class="ccc-standapp-skeleton ccc-standapp-skeleton--line" style="width:70%"></div>';
+                echo '<div class="ccc-standapp-skeleton ccc-standapp-skeleton--line" style="width:55%"></div>';
+                echo '</div>';
+                echo '</div>';
+            }
             echo '</div>';
 
             return ob_get_clean();
@@ -745,16 +794,16 @@ if (!class_exists('CCC_Eventos_Standapp')) {
     overflow:hidden;
     border-radius:20px;
     background:#111111;
-    box-shadow:0 10px 30px rgba(0,0,0,.18);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 12px 32px rgba(0,0,0,.28);
     height:100%;
-    border:1px solid rgba(255,255,255,.06);
-    transition:transform .22s ease, box-shadow .22s ease;
+    border:0;
+    transition:transform .25s ease, box-shadow .25s ease;
     color:#ffffff;
 }
 
 .ccc-standapp-card:hover{
     transform:translateY(-4px);
-    box-shadow:0 16px 40px rgba(0,0,0,.24);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 16px 40px rgba(213,0,28,.16);
 }
 
 .ccc-standapp-card-media{
@@ -815,12 +864,14 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
 .ccc-standapp-date{
     display:inline-flex;
-    padding:8px 12px;
-    border-radius:999px;
-    background:#1c1c1c;
+    align-items:baseline;
+    gap:6px;
     color:#ffffff !important;
-    font-size:13px;
+    font-family:"Bitter","Merriweather",Georgia,"Times New Roman",serif;
+    font-size:20px;
     font-weight:800;
+    line-height:1;
+    letter-spacing:-.01em;
     text-transform:uppercase;
 }
 
@@ -928,6 +979,32 @@ if (!class_exists('CCC_Eventos_Standapp')) {
     display:none !important;
 }
 
+.ccc-standapp-skeleton-card{
+    pointer-events:none;
+    opacity:.5;
+}
+
+.ccc-standapp-skeleton{
+    background:linear-gradient(90deg,rgba(255,255,255,.04) 25%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.04) 75%);
+    background-size:200% 100%;
+    animation:ccc-shimmer 1.5s infinite;
+    border-radius:10px;
+}
+
+.ccc-standapp-skeleton--media{
+    aspect-ratio:16/9;
+    border-radius:20px 20px 0 0;
+}
+
+.ccc-standapp-skeleton--line{
+    height:14px;
+    margin-bottom:10px;
+}
+
+@keyframes ccc-shimmer{
+    to{background-position:-200% 0;}
+}
+
 /* Blindagem contra herança do tema/Elementor */
 .ccc-standapp-wrap,
 .ccc-standapp-wrap .ccc-standapp-card,
@@ -985,6 +1062,7 @@ CSS;
         {
             return <<<JS
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('%cCuritiba Comedy Club %c— agenda por Leonardo Bora, exímio programador', 'font-weight:bold', 'color:#e11d48');
     var roots = document.querySelectorAll('[data-ccc-standapp-root]');
 
     roots.forEach(function (root) {
@@ -996,12 +1074,78 @@ document.addEventListener('DOMContentLoaded', function () {
         var noResults = root.querySelector('[data-ccc-no-results]');
         var limitAttr = parseInt(root.getAttribute('data-ccc-limit') || '0', 10);
         var eventLimit = isNaN(limitAttr) ? 0 : limitAttr;
+        var currentMonth = root.getAttribute('data-ccc-current-month') || '';
+        var defaultMonth = (monthSelect && monthSelect.getAttribute('data-ccc-default-month')) || currentMonth || '';
+
+        // Abre no mês atual quando houver eventos nele (ex.: setembro em vez de agosto).
+        if (monthSelect && defaultMonth) {
+            var hasOption = Array.prototype.some.call(monthSelect.options, function (opt) {
+                return opt.value === defaultMonth;
+            });
+            if (hasOption && !monthSelect.value) {
+                monthSelect.value = defaultMonth;
+            }
+        }
 
         function normalizeText(text) {
             return (text || '')
                 .toLowerCase()
                 .normalize('NFD')
                 .replace(/[\\u0300-\\u036f]/g, '');
+        }
+
+        // Timestamp do início de hoje (relógio do visitante). Serve para
+        // esconder eventos passados mesmo quando a página vem de page cache.
+        function startOfTodayTs() {
+            var now = new Date();
+            return new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 1000;
+        }
+
+        function isPastEvent(card) {
+            var ts = parseInt(card.getAttribute('data-timestamp') || '', 10);
+            if (isNaN(ts)) {
+                return false;
+            }
+            return ts < startOfTodayTs();
+        }
+
+        function dayKeyOfTs(ts) {
+            var d = new Date(ts * 1000);
+            return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+        }
+
+        // Recalcula o badge HOJE/AMANHÃ no cliente, corrigindo badges
+        // desatualizados de um HTML em cache antigo.
+        function recalcBadges(card) {
+            var container = card.querySelector('[data-ccc-badges]');
+            if (!container) {
+                return;
+            }
+
+            var ts = parseInt(card.getAttribute('data-timestamp') || '', 10);
+            if (isNaN(ts)) {
+                container.style.display = 'none';
+                return;
+            }
+
+            var now = new Date();
+            var today = dayKeyOfTs(now.getTime() / 1000);
+            var tomorrow = dayKeyOfTs((now.getTime() / 1000) + 86400);
+            var eventDay = dayKeyOfTs(ts);
+            var badge = '';
+
+            if (eventDay === today) {
+                badge = 'HOJE';
+            } else if (eventDay === tomorrow) {
+                badge = 'AMANHÃ';
+            }
+
+            if (badge) {
+                container.style.display = '';
+                container.innerHTML = '<span class="ccc-standapp-badge">' + badge + '</span>';
+            } else {
+                container.style.display = 'none';
+            }
         }
 
         function applyFilters() {
@@ -1020,6 +1164,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 var matchWeekday = !weekdayValue || cardWeekday === weekdayValue;
 
                 var show = matchSearch && matchMonth && matchWeekday;
+
+                // Blindagem anti-cache: nunca exibe evento de dias passados.
+                if (show && isPastEvent(card)) {
+                    show = false;
+                }
 
                 if (show && eventLimit > 0 && visibleCount >= eventLimit) {
                     show = false;
@@ -1052,11 +1201,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (resetButton) {
             resetButton.addEventListener('click', function () {
                 if (searchInput) searchInput.value = '';
-                if (monthSelect) monthSelect.value = '';
+                if (monthSelect) monthSelect.value = defaultMonth || '';
                 if (weekdaySelect) weekdaySelect.value = '';
                 applyFilters();
             });
         }
+
+        // Corrige badges desatualizados antes do primeiro render.
+        cards.forEach(recalcBadges);
 
         applyFilters();
     });

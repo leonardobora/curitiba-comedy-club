@@ -123,6 +123,7 @@ Todos os estilos seguem prefixo `ccc-ui-` para minimizar conflitos com Astra/Ele
 
 ## Documentacao Tecnica
 
+- Guia para IAs/devs novos no projeto: `AGENTS.md` (leia primeiro)
 - Arquitetura: `docs/architecture.md`
 - Design system: `docs/design-system.md`
 - Mapa de paginas: `docs/page-map.md`

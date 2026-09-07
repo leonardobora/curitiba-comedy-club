@@ -58,6 +58,10 @@ final class CCC_UI_Kit
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-timeline.php';
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-accordion.php';
         require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-section-nav.php';
+        require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-divider.php';
+        require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-countdown.php';
+        require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-stats.php';
+        require_once CCC_UI_KIT_PATH . 'includes/shortcodes/class-ccc-ui-shortcode-testimonials.php';
     }
 
     private function boot_modules()
@@ -67,5 +71,16 @@ final class CCC_UI_Kit
 
         $this->shortcodes = new CCC_UI_Shortcodes();
         $this->shortcodes->register();
+
+        add_action('wp_footer', array($this, 'render_back_to_top'));
+    }
+
+    public function render_back_to_top()
+    {
+        echo '<button class="ccc-ui-back-to-top" aria-label="Voltar ao topo" type="button">'
+            . '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">'
+            . '<path d="M10 4L3 11l1.4 1.4L10 6.8l5.6 5.6L17 11z" fill="currentColor"/>'
+            . '</svg>'
+            . '</button>';
     }
 }

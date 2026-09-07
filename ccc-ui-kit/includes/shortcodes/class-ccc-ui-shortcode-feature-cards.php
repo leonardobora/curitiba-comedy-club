@@ -28,18 +28,20 @@ final class CCC_UI_Shortcode_Feature_Cards
                 'title' => 'Por que viver essa noite com a gente',
                 'subtitle' => 'Diferenciais que transformam um show em experiência completa.',
                 'items' => 'Curadoria de comediantes::Line-up selecionado com nomes fortes e revelações.|Casa premium::Conforto, som e visibilidade pensados para stand-up.|Gastronomia no ponto::Drinks e cozinha para acompanhar toda a noite.|Localização fácil::Acesso prático em uma das regiões mais conhecidas de Curitiba.',
+                'reveal' => 'yes',
             ),
             $atts,
             self::TAG
         );
 
         $items = $this->parse_items((string) $atts['items']);
+        $reveal = $atts['reveal'] !== 'no';
 
         ob_start();
         ?>
         <section class="ccc-ui-section ccc-ui-feature-cards" data-ccc-ui-component="feature-cards">
             <div class="ccc-ui-container">
-                <article class="ccc-ui-feature-cards__surface">
+                <article class="ccc-ui-feature-cards__surface<?php echo $reveal ? ' ccc-ui-reveal' : ''; ?>"<?php echo $reveal ? ' data-ccc-reveal' : ''; ?>>
                     <header class="ccc-ui-feature-cards__header">
                         <h2 class="ccc-ui-title ccc-ui-title--lg"><?php echo esc_html((string) $atts['title']); ?></h2>
                         <?php if ((string) $atts['subtitle'] !== '') : ?>
@@ -48,8 +50,8 @@ final class CCC_UI_Shortcode_Feature_Cards
                     </header>
 
                     <div class="ccc-ui-feature-cards__grid">
-                        <?php foreach ($items as $item) : ?>
-                            <article class="ccc-ui-feature-cards__item<?php echo $item['url'] !== '' ? ' ccc-ui-feature-cards__item--linked' : ''; ?>">
+                        <?php $delay = 0; foreach ($items as $item) : $delay++; ?>
+                            <article class="ccc-ui-feature-cards__item<?php echo $item['url'] !== '' ? ' ccc-ui-feature-cards__item--linked' : ''; ?><?php echo $reveal ? ' ccc-ui-reveal' : ''; ?>"<?php echo $reveal ? ' data-ccc-reveal data-ccc-reveal-delay="' . esc_attr(min($delay, 3)) . '"' : ''; ?>>
                                 <?php if ($item['url'] !== '') : ?>
                                     <a class="ccc-ui-feature-cards__item-link" href="<?php echo esc_url($item['url']); ?>">
                                         <h3 class="ccc-ui-feature-cards__item-title"><?php echo esc_html($item['title']); ?></h3>

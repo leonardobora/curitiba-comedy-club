@@ -28,6 +28,10 @@ final class CCC_UI_Shortcodes
             new CCC_UI_Shortcode_Timeline(),
             new CCC_UI_Shortcode_Accordion(),
             new CCC_UI_Shortcode_Section_Nav(),
+            new CCC_UI_Shortcode_Divider(),
+            new CCC_UI_Shortcode_Countdown(),
+            new CCC_UI_Shortcode_Stats(),
+            new CCC_UI_Shortcode_Testimonials(),
         );
 
         foreach ($this->shortcode_objects as $shortcode) {

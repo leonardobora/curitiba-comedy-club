@@ -31,16 +31,18 @@ final class CCC_UI_Shortcode_About_Block
                 'highlights' => 'Palco profissional|Drinks e cozinha|Programação semanal',
                 'button_text' => 'Ver programação',
                 'button_url' => '/programacao/',
+                'reveal' => 'yes',
             ),
             $atts,
             self::TAG
         );
 
         $highlights = array_filter(array_map('trim', explode('|', (string) $atts['highlights'])));
+        $reveal = $atts['reveal'] !== 'no';
 
         ob_start();
         ?>
-        <section class="ccc-ui-section ccc-ui-about" data-ccc-ui-component="about-block">
+        <section class="ccc-ui-section ccc-ui-about<?php echo $reveal ? ' ccc-ui-reveal' : ''; ?>" data-ccc-ui-component="about-block"<?php echo $reveal ? ' data-ccc-reveal' : ''; ?>>
             <div class="ccc-ui-container">
                 <article class="ccc-ui-about__surface">
                     <?php if ($atts['kicker'] !== '') : ?>

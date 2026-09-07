@@ -1,3 +1,8 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
 .ccc-ui-section {
     padding: var(--ccc-ui-space-6) 0;
     color: var(--ccc-ui-color-text);
@@ -33,6 +38,23 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-size: clamp(14px, 1.5vw, 16px);
+    position: relative;
+    display: inline-block;
+}
+
+.ccc-ui-reveal.is-visible .ccc-ui-kicker::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    background: var(--ccc-ui-color-accent);
+    animation: ccc-ui-kicker-line 0.5s ease 0.3s forwards;
+    width: 0;
+}
+
+@keyframes ccc-ui-kicker-line {
+    to { width: 100%; }
 }
 
 .ccc-ui-subtitle,
@@ -70,13 +92,16 @@
 }
 
 .ccc-ui-button--primary {
-    background: var(--ccc-ui-color-accent);
+    background: var(--ccc-ui-gradient-velvet);
     color: #ffffff;
+    border-color: transparent;
 }
 
 .ccc-ui-button--primary:hover {
-    background: var(--ccc-ui-color-accent-hover);
+    background: var(--ccc-ui-gradient-velvet);
+    filter: brightness(1.12);
     color: #ffffff;
+    box-shadow: 0 0 24px rgba(213, 0, 28, 0.42), 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .ccc-ui-button--ghost {
@@ -98,6 +123,43 @@
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+}
+
+/* Divider */
+.ccc-ui-divider {
+    width: min(200px, 40%);
+    height: 1px;
+    margin: 0 auto;
+    border: 0;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(213, 0, 28, 0.4) 50%,
+        transparent 100%
+    );
+}
+
+/* Scroll reveal */
+.ccc-ui-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.ccc-ui-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ccc-ui-reveal[data-ccc-reveal-delay="1"] { transition-delay: 0.1s; }
+.ccc-ui-reveal[data-ccc-reveal-delay="2"] { transition-delay: 0.2s; }
+.ccc-ui-reveal[data-ccc-reveal-delay="3"] { transition-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .ccc-ui-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }
 
 @media (max-width: 767px) {

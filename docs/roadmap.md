@@ -233,5 +233,30 @@ Entregas concluidas nesta rodada:
 Proximos passos:
 
 1. Validar GTM com equipe de marketing (Joao Madalosso) e desativar snippets duplicados (Meta Pixel, Google Ads) quando migrados para o GTM.
-2. Criar pagina Quadros da Casa com carrossel de fotos dos quadros de famosos.
+2. Solicitar fotos dos quadros nas paredes ao Joca para completar a pagina Quadros da Casa.
 3. Subir plugins atualizados via FTP para ambiente de producao.
+4. Publicar pagina Quadros da Casa (atualmente em draft) apos receber fotos.
+5. Inserir section_heading + eventos_standapp na Home conforme page-map.
+
+## Fechamento do dia (03/04/2026)
+
+Status: MCP WordPress conectado e validado; testimonials e Quadros da Casa entregues.
+
+Entregas concluidas nesta rodada:
+
+1. Conexao e validacao do MCP WordPress server com 14 tools operacionais.
+2. Auditoria completa das 7 paginas ao vivo vs page-map — divergencias mapeadas.
+3. Inventario dos 18 shortcodes com status de uso por pagina.
+4. Testimonials da Home substituidos por 6 avaliacoes reais do Google Maps (4.7/5, 5600+ reviews) com nomes dos avaliadores.
+5. Novo atributo review_url/review_text no shortcode ccc_testimonials com botao "Deixe sua avaliacao no Google".
+6. Pagina Quadros da Casa criada como draft (ID #1096) com narrativa completa: timeline de artistas, historia das tabuas do palco, stats e CTA.
+7. Page-map atualizado com snippets de Quadros da Casa e testimonials reais.
+8. Overview tecnico do ccc-ui-kit: issues de prioridade alta/media/baixa identificados.
+9. Mapeamento do MCP WordPress para futuro open-source (credenciais expostas em test-mcp.js identificadas).
+
+Proximos passos:
+
+1. Fotos dos quadros nas paredes (dependencia do Joca) para carrossel na pagina Quadros.
+2. Correcoes tecnicas: inline styles no carousel, cor hardcoded no CSS Astra, error handling do countdown.
+3. Inserir eventos_standapp na Home (section heading + grid de shows da semana).
+4. Preparar MCP WordPress para open-source (remover credenciais, renomear package).
