@@ -3,7 +3,7 @@
  * Plugin Name: CCC Eventos Standapp
  * Plugin URI: https://curitibacomedyclub.com.br/
  * Description: Lista eventos do Curitiba Comedy Club via API Standapp com shortcode [eventos_standapp].
- * Version: 3.2.2
+ * Version: 3.2.3
  * Author: Curitiba Comedy Club
  * License: GPL2+
  * Text Domain: ccc-eventos-standapp
@@ -17,7 +17,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
     final class CCC_Eventos_Standapp
     {
-        const VERSION = '3.2.2';
+        const VERSION = '3.2.3';
         const SHORTCODE = 'eventos_standapp';
         const SHORTCODE_HOME = 'eventos_standapp_home';
         const SHORTCODE_HOJE = 'eventos_standapp_hoje';
@@ -1212,24 +1212,26 @@ if (!class_exists('CCC_Eventos_Standapp')) {
     border-radius:999px;
     background:#e11d48;
     color:#ffffff !important;
+    font-family:"Oswald","DM Sans",sans-serif;
     font-size:12px;
-    font-weight:800;
-    letter-spacing:.06em;
+    font-weight:600;
+    letter-spacing:.08em;
     text-transform:uppercase;
 }
 
 .ccc-standapp-today__title{
-    font-family:"Bitter","Merriweather",Georgia,"Times New Roman",serif;
-    font-size:clamp(17px,2vw,21px);
-    font-weight:800;
+    font-family:"Oswald","DM Sans",sans-serif;
+    font-size:clamp(18px,2.3vw,24px);
+    font-weight:600;
     line-height:1.2;
     color:#ffffff !important;
     word-break:break-word;
 }
 
 .ccc-standapp-today__time{
+    font-family:"DM Sans","Montserrat","Segoe UI",sans-serif;
     font-size:14px;
-    font-weight:700;
+    font-weight:600;
     color:rgba(255,255,255,.82) !important;
     white-space:nowrap;
 }
@@ -1244,8 +1246,9 @@ if (!class_exists('CCC_Eventos_Standapp')) {
     background:linear-gradient(135deg, #e8112b 0%, #7a0b1e 100%);
     color:#ffffff !important;
     text-decoration:none !important;
+    font-family:"DM Sans","Montserrat","Segoe UI",sans-serif;
     font-size:14px;
-    font-weight:800;
+    font-weight:700;
     white-space:nowrap;
     transition:transform .18s ease, filter .18s ease;
 }
