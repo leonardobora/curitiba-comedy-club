@@ -3,7 +3,7 @@
  * Plugin Name: CCC Eventos Standapp
  * Plugin URI: https://curitibacomedyclub.com.br/
  * Description: Lista eventos do Curitiba Comedy Club via API Standapp com shortcode [eventos_standapp].
- * Version: 3.2.1
+ * Version: 3.2.2
  * Author: Curitiba Comedy Club
  * License: GPL2+
  * Text Domain: ccc-eventos-standapp
@@ -17,7 +17,7 @@ if (!class_exists('CCC_Eventos_Standapp')) {
 
     final class CCC_Eventos_Standapp
     {
-        const VERSION = '3.2.1';
+        const VERSION = '3.2.2';
         const SHORTCODE = 'eventos_standapp';
         const SHORTCODE_HOME = 'eventos_standapp_home';
         const SHORTCODE_HOJE = 'eventos_standapp_hoje';
@@ -33,12 +33,21 @@ if (!class_exists('CCC_Eventos_Standapp')) {
          */
         const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL2hhc3VyYS5pby9qd3QvY2xhaW1zIjp7IngtaGFzdXJhLWFsbG93ZWQtcm9sZXMiOlsidmlzaXRvciIsImxvZ2dlZCJdLCJ4LWhhc3VyYS1kZWZhdWx0LXJvbGUiOiJ2aXNpdG9yIiwieC1oYXN1cmEtdXNlci1pZCI6IjAifX0.-yI-yUFqsBe6puXTq9znDnLbAZSzlzl6TF_YfPyJtPc';
 
+        /**
+         * Evita renderizar o banner duas vezes quando a auto-injeção
+         * (astra_content_before) e um shortcode manual coexistem.
+         *
+         * @var bool
+         */
+        private $today_banner_rendered = false;
+
         public function __construct()
         {
             add_shortcode(self::SHORTCODE, array($this, 'render_shortcode'));
             add_shortcode(self::SHORTCODE_HOME, array($this, 'render_home_shortcode'));
             add_shortcode(self::SHORTCODE_HOJE, array($this, 'render_today_banner'));
             add_action('wp_enqueue_scripts', array($this, 'register_assets'));
+            add_action('astra_content_before', array($this, 'maybe_inject_today_banner'));
         }
 
         /**
@@ -73,6 +82,10 @@ if (!class_exists('CCC_Eventos_Standapp')) {
          */
         public function render_today_banner($atts = array())
         {
+            if ($this->today_banner_rendered) {
+                return '';
+            }
+
             $atts = shortcode_atts(array(
                 'label'  => 'Hoje',
                 'cta'    => 'Comprar ingresso',
@@ -85,6 +98,8 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             if (empty($today_event) || empty($today_event['timestamp'])) {
                 return '';
             }
+
+            $this->today_banner_rendered = true;
 
             $tz = new DateTimeZone(self::TIMEZONE);
             $date_key = (new DateTimeImmutable('@' . (int) $today_event['timestamp']))->setTimezone($tz)->format('Y-m-d');
@@ -112,6 +127,24 @@ if (!class_exists('CCC_Eventos_Standapp')) {
             echo '</div>';
 
             return ob_get_clean();
+        }
+
+        /**
+         * Injeção automática do banner "ingresso de hoje" no topo da Home,
+         * independente de Elementor/shortcode manual. Disparada pelo hook
+         * `astra_content_before` apenas na página inicial.
+         */
+        public function maybe_inject_today_banner()
+        {
+            if (!is_front_page()) {
+                return;
+            }
+
+            if (!apply_filters('ccc_standapp_auto_inject_today', true)) {
+                return;
+            }
+
+            echo $this->render_today_banner();
         }
 
         /**

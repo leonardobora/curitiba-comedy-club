@@ -32,6 +32,12 @@ shortcodes). Docs de apoio em `docs/` (`architecture.md`, `page-map.md`,
   (compacto), `[eventos_standapp_hoje]` (banner horizontal com o ingresso de
   hoje — usa `find_today_event()` e se auto-esconde no cliente se a data não
   for mais hoje).
+- **Auto-injeção do banner na Home**: o plugin injeta `[eventos_standapp_hoje]`
+  automaticamente via hook `astra_content_before` quando `is_front_page()`
+  (independe do Elementor/shortcode manual). Para desligar, use
+  `add_filter('ccc_standapp_auto_inject_today', '__return_false')`. Um flag
+  interno (`$today_banner_rendered`) evita duplicar caso o shortcode também
+  esteja inserido manualmente.
 - Cache em 2 camadas:
   1. `transient` `ccc_standapp_eventos_v311` (TTL 300s). **Ao mudar qualquer
      regra de normalização/filtro, troque o sufixo da chave** (ex.: `v312`)
